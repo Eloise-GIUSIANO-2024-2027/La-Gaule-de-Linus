@@ -1,3 +1,5 @@
+package consomable;
+
 public class Alliments {
     
     // Énumération des types d'aliments
