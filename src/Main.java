@@ -28,9 +28,9 @@ public class Main {
         boolean continuer = true;
 
         while (continuer) {
-            System.out.println("\n========================================");
+            System.out.println("\n----------------------------------------");
             System.out.println("MENU PRINCIPAL");
-            System.out.println("========================================");
+            System.out.println("----------------------------------------");
             System.out.println("1. Voir tous les aliments disponibles");
             System.out.println("2. Voir les aliments consommables par mon personnage");
             System.out.println("3. Manger un aliment");
