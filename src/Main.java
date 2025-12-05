@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 public class Main {
 
     private static void pause(long milliseconds) {
@@ -29,7 +27,7 @@ public class Main {
         pause(DELAI_MS);
         System.out.println("Un village nommé Beurk");
         pause(DELAI_MS);
-        System.out.println("Votre mission si vous l'acceptez, et de reconquérir la Gaule");
+        System.out.println("Votre mission si vous l'acceptez, et de reconquérir VOTRE Gaule");
 
         pause(DELAI_MS);
         pause(DELAI_MS);

@@ -11,6 +11,16 @@ public class Menu {
                 "\n" + "5. Quitter";
     }
 
+    private static void pause() {
+        try {
+            Thread.sleep(1500);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            System.err.println("La pause a été interrompue : " + e.getMessage());
+        }
+    }
+
+
     public static void lancerJeu() {
         Scanner scanner = new Scanner(System.in);
         boolean continuer = true;
@@ -24,26 +34,33 @@ public class Menu {
 
             switch (choix) {
                 case "1":
-                    System.out.println("Affichage de la Carte...");
-                    continuer = false;
+                    pause();
+                    System.out.println("\n");
+                    Carte Carte = new Carte();
+//                    continuer = false;
                     break;
                 case "2":
+                    System.out.println("\n");
                     System.out.println("Accès aux Renseignements...");
                     continuer = false;
                     break;
                 case "3":
+                    System.out.println("\n");
                     System.out.println("Consultation de l'Inventaire...");
                     continuer = false;
                     break;
                 case "4":
+                    System.out.println("\n");
                     System.out.println("Le mode Loups Garou n'est pas encore disponible.");
                     continuer = false;
                     break;
                 case "5":
+                    System.out.println("\n");
                     System.out.println("La Gaule attendras avec patience votre retours");
                     continuer = false;
                     break;
                 default:
+                    System.out.println("\n");
                     System.out.println("Choix non valide. Veuillez entrer un numéro entre 1 et 5");
                     break;
             }
