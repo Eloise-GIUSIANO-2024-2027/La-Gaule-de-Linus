@@ -5,7 +5,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Test_food {
+public class Testfood {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         List<Alliments> historiqueRepas = new ArrayList<>();
