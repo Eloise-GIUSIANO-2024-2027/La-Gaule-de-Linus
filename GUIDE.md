@@ -6,7 +6,7 @@
 ```bash
 cd /amuhome/c24003506/LINUS/La-Gaule-de-Linus
 javac src/consomable/*.java src/*.java
-java -cp src Main
+java -cp src Test_food
 ```
 
 ### Lancer les tests de la potion
