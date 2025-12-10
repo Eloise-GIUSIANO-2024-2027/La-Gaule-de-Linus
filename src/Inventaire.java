@@ -72,7 +72,7 @@ public class Inventaire {
     public void afficherInventaire() {
         System.out.println("\n/-/ INVENTAIRE /-/");
 
-        System.out.println("\n🧪 POTIONS (" + potions.size() + "):");
+        System.out.println("\n/-/ POTIONS (" + potions.size() + ") /-/:");
         if (potions.isEmpty()) {
             System.out.println("  (vide)");
         } else {
@@ -83,7 +83,7 @@ public class Inventaire {
             }
         }
 
-        System.out.println("\n🍖 ALIMENTS (" + aliments.size() + "):");
+        System.out.println("\n/-/ ALIMENTS (" + aliments.size() + ") /-/:");
         if (aliments.isEmpty()) {
             System.out.println("  (vide)");
         } else {
@@ -91,7 +91,7 @@ public class Inventaire {
                 System.out.println("  " + (i + 1) + ". " + aliments.get(i).getNom());
             }
         }
-        System.out.println("\n🌿 INGRÉDIENTS POUR POTIONS:");
+        System.out.println("\n/-/ INGRÉDIENTS POUR POTIONS /-/:");
         if (ingredients.isEmpty()) {
             System.out.println("  (vide)");
         } else {

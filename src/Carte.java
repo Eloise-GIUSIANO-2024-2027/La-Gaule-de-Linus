@@ -16,7 +16,6 @@ public class Carte {
 
     private List<Lieux> TousLesLieux = new ArrayList<>();
     private Inventaire inventaire;
-    private Random random = new Random();
     boolean renseignement = true;
     Scanner scanner = new Scanner(System.in);
 
@@ -45,8 +44,6 @@ public class Carte {
         System.out.println("Si tu dois aller quelque part, elle te guidera tu peut le croire");
         pause();
 
-        // Donner des récompenses de départ au joueur
-        donnerRecompensesDepart();
 
         System.out.println("\n");
         System.out.println("Voila les lieux que tu as conquis : ");
@@ -57,8 +54,6 @@ public class Carte {
         System.out.println("Voila les lieux que tu n'as pas conquis : ");
         AfficherLieuxNonConquis();
 
-        // Proposer de conquérir un lieu
-        proposerConquete();
 
         System.out.println("\nVoulez vous des renseignements suplémentaires sur un lieux ?");
         System.out.println("Oui : 1 et Non : 2");
@@ -97,197 +92,6 @@ public class Carte {
         for (Lieux lieu : TousLesLieux) {
             if (lieu.getConquerieOuBienNan().equals("NAN")) {
                 System.out.println(lieu);            }
-        }
-    }
-
-    /**
-     * Donne des récompenses de départ au joueur
-     */
-    private void donnerRecompensesDepart() {
-        System.out.println("\n🎁 === RÉCOMPENSES DE DÉPART === 🎁");
-        System.out.println("Bienvenue brave guerrier ! Voici quelques provisions pour commencer votre aventure :");
-        pause();
-
-        // Aliments de départ
-        inventaire.ajouterAliment(new Aliments(Aliments.TypeAliment.SANGLIER));
-        inventaire.ajouterAliment(new Aliments(Aliments.TypeAliment.VIN));
-
-        // Ingrédients de départ pour créer une potion
-        System.out.println("\nVous recevez également des ingrédients pour fabriquer une potion magique :");
-        inventaire.ajouterIngredient(Aliments.TypeAliment.GUI, 2);
-        inventaire.ajouterIngredient(Aliments.TypeAliment.CAROTTES, 2);
-        inventaire.ajouterIngredient(Aliments.TypeAliment.SEL, 2);
-        inventaire.ajouterIngredient(Aliments.TypeAliment.TREFLE_QUATRE_FEUILLES_FRAIS, 2);
-        inventaire.ajouterIngredient(Aliments.TypeAliment.POISSON_PASSABLEMENT_FRAIS, 2);
-        inventaire.ajouterIngredient(Aliments.TypeAliment.HUILE_DE_ROCHE, 2);
-        inventaire.ajouterIngredient(Aliments.TypeAliment.MIEL, 2);
-        inventaire.ajouterIngredient(Aliments.TypeAliment.HYDROMEL, 2);
-        inventaire.ajouterIngredient(Aliments.TypeAliment.INGREDIENT_SECRET, 2);
-
-        System.out.println("\n✨ Vous avez assez d'ingrédients pour créer 2 potions magiques !");
-        System.out.println("💡 Astuce : Allez dans l'inventaire (option 3 du menu) pour créer vos potions.\n");
-        pause();
-    }
-
-    /**
-     * Propose au joueur de conquérir un lieu
-     */
-    private void proposerConquete() {
-        System.out.println("\n⚔️  === CONQUÊTE === ⚔️");
-        System.out.println("Voulez-vous tenter de conquérir un nouveau lieu ?");
-        System.out.print("Oui : 1 / Non : 2 : ");
-
-        String choix = scanner.nextLine().trim();
-
-        if (choix.equals("1")) {
-            List<Lieux> lieuxNonConquis = new ArrayList<>();
-            for (Lieux lieu : TousLesLieux) {
-                if (lieu.getConquerieOuBienNan().equals("NAN")) {
-                    lieuxNonConquis.add(lieu);
-                }
-            }
-
-            if (lieuxNonConquis.isEmpty()) {
-                System.out.println("\n🎉 Félicitations ! Vous avez déjà conquis tous les lieux !");
-                return;
-            }
-
-            System.out.println("\nChoisissez un lieu à conquérir :");
-            for (int i = 0; i < lieuxNonConquis.size(); i++) {
-                System.out.println((i + 1) + ". " + lieuxNonConquis.get(i).getNom() +
-                                   " (" + lieuxNonConquis.get(i).getTypeLieux() + ")");
-            }
-
-            System.out.print("\nVotre choix (1-" + lieuxNonConquis.size() + ") : ");
-            try {
-                int choixLieu = Integer.parseInt(scanner.nextLine().trim());
-                if (choixLieu >= 1 && choixLieu <= lieuxNonConquis.size()) {
-                    conquerirLieu(lieuxNonConquis.get(choixLieu - 1));
-                } else {
-                    System.out.println("❌ Choix invalide !");
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("❌ Veuillez entrer un nombre !");
-            }
-        } else {
-            System.out.println("Peut-être une prochaine fois...");
-        }
-    }
-
-    /**
-     * Conquiert un lieu et donne des récompenses
-     */
-    private void conquerirLieu(Lieux lieu) {
-        System.out.println("\n⚔️  BATAILLE EN COURS... ⚔️");
-        pause();
-        pause();
-
-        // Simulation de bataille (aléatoire pour l'instant)
-        boolean victoire = random.nextInt(100) < 70; // 70% de chance de victoire
-
-        if (victoire) {
-            System.out.println("🎉 VICTOIRE ! Vous avez conquis " + lieu.getNom() + " !");
-            lieu.setConquerieOuBienNan("OUI");
-
-            // Donner des récompenses
-            donnerRecompensesConquete(lieu);
-        } else {
-            System.out.println("💥 DÉFAITE ! Vous n'avez pas réussi à conquérir " + lieu.getNom() + "...");
-            System.out.println("Mais vous trouvez quelques provisions abandonnées :");
-
-            // Petite récompense même en cas de défaite
-            int nbRecompenses = 1 + random.nextInt(2); // 1 ou 2 objets
-            for (int i = 0; i < nbRecompenses; i++) {
-                donnerAlimentAleatoire();
-            }
-        }
-        pause();
-    }
-
-    /**
-     * Donne des récompenses après avoir conquis un lieu
-     */
-    private void donnerRecompensesConquete(Lieux lieu) {
-        System.out.println("\n🎁 === RÉCOMPENSES === 🎁");
-        pause();
-
-        // Ajouter l'aliment du lieu
-        String alimentLieu = lieu.getAliments();
-        if (alimentLieu != null && !alimentLieu.isEmpty()) {
-            try {
-                Aliments.TypeAliment type = Aliments.TypeAliment.valueOf(alimentLieu.toUpperCase().replace(" ", "_"));
-                inventaire.ajouterAliment(new Aliments(type));
-            } catch (IllegalArgumentException e) {
-                // Si le nom ne correspond pas exactement, donner un sanglier par défaut
-                inventaire.ajouterAliment(new Aliments(Aliments.TypeAliment.SANGLIER));
-            }
-        }
-
-        // Récompenses selon le type de lieu
-        String typeLieu = lieu.getTypeLieux();
-        switch (typeLieu) {
-            case "VillageGaulois":
-                System.out.println("Les villageois vous offrent des provisions :");
-                inventaire.ajouterAliment(new Aliments(Aliments.TypeAliment.POISSON_PASSABLEMENT_FRAIS));
-                inventaire.ajouterIngredient(Aliments.TypeAliment.GUI, 2);
-                inventaire.ajouterIngredient(Aliments.TypeAliment.MIEL, 1);
-                break;
-
-            case "CampRomain":
-                System.out.println("Vous pillez le camp romain et trouvez :");
-                inventaire.ajouterAliment(new Aliments(Aliments.TypeAliment.VIN));
-                inventaire.ajouterIngredient(Aliments.TypeAliment.SEL, 2);
-                inventaire.ajouterIngredient(Aliments.TypeAliment.HYDROMEL, 1);
-                break;
-
-            case "VilleRomain":
-                System.out.println("La ville regorge de trésors :");
-                inventaire.ajouterAliment(new Aliments(Aliments.TypeAliment.HOMARD));
-                inventaire.ajouterIngredient(Aliments.TypeAliment.HUILE_DE_ROCHE, 2);
-                inventaire.ajouterIngredient(Aliments.TypeAliment.FRAISES, 1);
-                break;
-
-            case "BourgadeGalloRomaine":
-                System.out.println("Les habitants partagent leurs récoltes :");
-                inventaire.ajouterAliment(new Aliments(Aliments.TypeAliment.MIEL));
-                inventaire.ajouterIngredient(Aliments.TypeAliment.CAROTTES, 2);
-                inventaire.ajouterIngredient(Aliments.TypeAliment.TREFLE_QUATRE_FEUILLES_FRAIS, 1);
-                break;
-
-            case "Enclos":
-                System.out.println("L'enclos contient des animaux et des plantes :");
-                inventaire.ajouterIngredient(Aliments.TypeAliment.GUI, 1);
-                inventaire.ajouterIngredient(Aliments.TypeAliment.CAROTTES, 1);
-                inventaire.ajouterIngredient(Aliments.TypeAliment.TREFLE_QUATRE_FEUILLES_FRAIS, 2);
-                break;
-
-            case "ChampsBataille":
-                System.out.println("🌟 Sur ce champ de bataille légendaire, vous trouvez des objets rares :");
-                inventaire.ajouterIngredient(Aliments.TypeAliment.INGREDIENT_SECRET, 1);
-                inventaire.ajouterIngredient(Aliments.TypeAliment.LAIT_DE_LICORNE, 1);
-                inventaire.ajouterIngredient(Aliments.TypeAliment.POILS_IDEFIX, 1);
-                System.out.println("✨ Des ingrédients magiques pour créer des potions extraordinaires !");
-                break;
-
-            default:
-                donnerAlimentAleatoire();
-        }
-
-        System.out.println("\n💡 Consultez votre inventaire (option 3) pour voir vos nouvelles provisions !");
-    }
-
-    /**
-     * Donne un aliment ou ingrédient aléatoire
-     */
-    private void donnerAlimentAleatoire() {
-        Aliments.TypeAliment[] types = Aliments.TypeAliment.values();
-        Aliments.TypeAliment typeAleatoire = types[random.nextInt(types.length)];
-
-        // 50% de chance d'être un aliment ou un ingrédient
-        if (random.nextBoolean()) {
-            inventaire.ajouterAliment(new Aliments(typeAleatoire));
-        } else {
-            inventaire.ajouterIngredient(typeAleatoire, 1);
         }
     }
 
