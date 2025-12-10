@@ -7,8 +7,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Inventaire {
-    
-    // Listes pour stocker les différents éléments de l'inventaire
+
     private List<Potion> potions;
     private List<Aliments> aliments;
     private Map<Aliments.TypeAliment, Integer> ingredients;
@@ -18,35 +17,23 @@ public class Inventaire {
         this.aliments = new ArrayList<>();
         this.ingredients = new HashMap<>();
     }
-    
-    /**
-     * Ajoute une potion à l'inventaire
-     */
+
     public void ajouterPotion(Potion potion) {
         potions.add(potion);
         System.out.println("✓ Potion ajoutée à l'inventaire !");
     }
-    
-    /**
-     * Ajoute un aliment à l'inventaire
-     */
+
     public void ajouterAliment(Aliments aliment) {
         aliments.add(aliment);
         System.out.println("✓ " + aliment.getNom() + " ajouté à l'inventaire !");
     }
 
-    /**
-     * Ajoute un ingrédient à l'inventaire
-     */
     public void ajouterIngredient(Aliments.TypeAliment ingredient, int quantite) {
         int quantiteActuelle = ingredients.getOrDefault(ingredient, 0);
         ingredients.put(ingredient, quantiteActuelle + quantite);
         System.out.println("✓ " + quantite + "x " + ingredient.getNom() + " ajouté(s) à l'inventaire !");
     }
 
-    /**
-     * Retire un ingrédient de l'inventaire
-     */
     public boolean retirerIngredient(Aliments.TypeAliment ingredient, int quantite) {
         int quantiteActuelle = ingredients.getOrDefault(ingredient, 0);
         if (quantiteActuelle >= quantite) {
@@ -59,17 +46,11 @@ public class Inventaire {
         }
         return false;
     }
-    
-    /**
-     * Vérifie si l'inventaire contient suffisamment d'un ingrédient
-     */
+
     public boolean possedeIngredient(Aliments.TypeAliment ingredient, int quantite) {
         return ingredients.getOrDefault(ingredient, 0) >= quantite;
     }
-    
-    /**
-     * Retire un aliment de l'inventaire
-     */
+
     public boolean retirerAliment(int index) {
         if (index >= 0 && index < aliments.size()) {
             Aliments aliment = aliments.remove(index);
@@ -78,10 +59,7 @@ public class Inventaire {
         }
         return false;
     }
-    
-    /**
-     * Retire une potion de l'inventaire
-     */
+
     public boolean retirerPotion(int index) {
         if (index >= 0 && index < potions.size()) {
             potions.remove(index);
@@ -90,14 +68,10 @@ public class Inventaire {
         }
         return false;
     }
-    
-    /**
-     * Affiche le contenu de l'inventaire
-     */
+
     public void afficherInventaire() {
-        System.out.println("\n         INVENTAIRE          ");
-        
-        // Afficher les potions
+        System.out.println("\n/-/ INVENTAIRE /-/");
+
         System.out.println("\n🧪 POTIONS (" + potions.size() + "):");
         if (potions.isEmpty()) {
             System.out.println("  (vide)");
@@ -108,8 +82,7 @@ public class Inventaire {
                                    (p.estNourrissante() ? " (nourrissante)" : ""));
             }
         }
-        
-        // Afficher les aliments
+
         System.out.println("\n🍖 ALIMENTS (" + aliments.size() + "):");
         if (aliments.isEmpty()) {
             System.out.println("  (vide)");
@@ -118,8 +91,6 @@ public class Inventaire {
                 System.out.println("  " + (i + 1) + ". " + aliments.get(i).getNom());
             }
         }
-        
-        // Afficher les ingrédients
         System.out.println("\n🌿 INGRÉDIENTS POUR POTIONS:");
         if (ingredients.isEmpty()) {
             System.out.println("  (vide)");
@@ -130,17 +101,14 @@ public class Inventaire {
         }
         System.out.println();
     }
-    
-    /**
-     * Menu de gestion de l'inventaire
-     */
+
     public void gererInventaire() {
         Scanner scanner = new Scanner(System.in);
         boolean continuer = true;
         
         while (continuer) {
             afficherInventaire();
-            System.out.println("  GESTION DE L'INVENTAIRE              ");
+            System.out.println("/-/ GESTION DE L'INVENTAIRE /-/");
             System.out.println("1. Créer une potion magique            ");
             System.out.println("2. Utiliser une potion                 ");
             System.out.println("3. Consommer un aliment                ");
@@ -173,15 +141,11 @@ public class Inventaire {
             }
         }
     }
-    
-    /**
-     * Crée une potion de manière interactive
-     */
+
     private void creerPotionInteractif(Scanner scanner) {
-        System.out.println("\n=== CRÉER UNE POTION MAGIQUE ===");
+        System.out.println("\n/-/ CRÉER UNE POTION MAGIQUE /-/");
         Potion.afficherRecette();
-        
-        // Vérifier les ingrédients de base
+
         Aliments.TypeAliment[] ingredientsBase = {
             Aliments.TypeAliment.GUI,
             Aliments.TypeAliment.CAROTTES,
@@ -192,8 +156,7 @@ public class Inventaire {
             Aliments.TypeAliment.HYDROMEL,
             Aliments.TypeAliment.INGREDIENT_SECRET
         };
-        
-        // Vérifier huile de roche OU jus de betterave
+
         boolean aHuileOuJus = possedeIngredient(Aliments.TypeAliment.HUILE_DE_ROCHE, 1) ||
                               possedeIngredient(Aliments.TypeAliment.JUS_DE_BETTERAVE, 1);
         
@@ -221,16 +184,13 @@ public class Inventaire {
             System.out.println("Création annulée.");
             return;
         }
-        
-        // Retirer les ingrédients de base
+
         for (Aliments.TypeAliment ing : ingredientsBase) {
             retirerIngredient(ing, 1);
         }
-        
-        // Créer la potion
+
         Potion nouvellePotion = new Potion();
-        
-        // Demander si on utilise du jus de betterave à la place de l'huile
+
         if (possedeIngredient(Aliments.TypeAliment.JUS_DE_BETTERAVE, 1)) {
             System.out.print("Utiliser du jus de betterave à la place de l'huile de roche ? (O/N) : ");
             reponse = scanner.nextLine().trim().toUpperCase();
@@ -243,8 +203,7 @@ public class Inventaire {
         } else {
             retirerIngredient(Aliments.TypeAliment.HUILE_DE_ROCHE, 1);
         }
-        
-        // Proposer d'ajouter des ingrédients optionnels
+
         if (possedeIngredient(Aliments.TypeAliment.HOMARD, 1)) {
             System.out.print("Ajouter du homard (nourrissant) ? (O/N) : ");
             reponse = scanner.nextLine().trim().toUpperCase();
@@ -285,17 +244,14 @@ public class Inventaire {
         System.out.println("\n🎉 Potion magique créée avec succès !");
         nouvellePotion.afficherIngredients();
     }
-    
-    /**
-     * Utilise une potion de manière interactive
-     */
+
     private void utiliserPotionInteractif(Scanner scanner) {
         if (potions.isEmpty()) {
             System.out.println("\n❌ Vous n'avez aucune potion dans votre inventaire !");
             return;
         }
         
-        System.out.println("\n=== UTILISER UNE POTION ===");
+        System.out.println("\n/-/ UTILISER UNE POTION /-/");
         for (int i = 0; i < potions.size(); i++) {
             Potion p = potions.get(i);
             System.out.println((i + 1) + ". Potion magique - " + p.getDosesRestantes() + " doses restantes");
@@ -329,17 +285,14 @@ public class Inventaire {
             System.out.println("❌ Veuillez entrer un nombre !");
         }
     }
-    
-    /**
-     * Consomme un aliment de manière interactive
-     */
+
     private void consommerAlimentInteractif(Scanner scanner) {
         if (aliments.isEmpty()) {
             System.out.println("\n❌ Vous n'avez aucun aliment dans votre inventaire !");
             return;
         }
         
-        System.out.println("\n=== CONSOMMER UN ALIMENT ===");
+        System.out.println("\n/-/ CONSOMMER UN ALIMENT /-/");
         for (int i = 0; i < aliments.size(); i++) {
             System.out.println((i + 1) + ". " + aliments.get(i).getNom());
         }
@@ -358,10 +311,7 @@ public class Inventaire {
             System.out.println("❌ Veuillez entrer un nombre !");
         }
     }
-    
-    /**
-     * Pause pour l'affichage
-     */
+
     private void pause(int ms) {
         try {
             Thread.sleep(ms);
