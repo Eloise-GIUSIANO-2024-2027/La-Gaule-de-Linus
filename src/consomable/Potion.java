@@ -6,16 +6,16 @@ import java.util.List;
 public class Potion {
 
     // Ingrédients de base de la potion magique
-    private static final Alliments.TypeAliment[] INGREDIENTS_BASE = {
-        Alliments.TypeAliment.GUI,
-        Alliments.TypeAliment.CAROTTES,
-        Alliments.TypeAliment.SEL,
-        Alliments.TypeAliment.TREFLE_QUATRE_FEUILLES_FRAIS,
-        Alliments.TypeAliment.POISSON_PASSABLEMENT_FRAIS,
-        Alliments.TypeAliment.HUILE_DE_ROCHE,
-        Alliments.TypeAliment.MIEL,
-        Alliments.TypeAliment.HYDROMEL,
-        Alliments.TypeAliment.INGREDIENT_SECRET
+    private static final Aliments.TypeAliment[] INGREDIENTS_BASE = {
+        Aliments.TypeAliment.GUI,
+        Aliments.TypeAliment.CAROTTES,
+        Aliments.TypeAliment.SEL,
+        Aliments.TypeAliment.TREFLE_QUATRE_FEUILLES_FRAIS,
+        Aliments.TypeAliment.POISSON_PASSABLEMENT_FRAIS,
+        Aliments.TypeAliment.HUILE_DE_ROCHE,
+        Aliments.TypeAliment.MIEL,
+        Aliments.TypeAliment.HYDROMEL,
+        Aliments.TypeAliment.INGREDIENT_SECRET
     };
 
     // Énumération des effets possibles
@@ -38,7 +38,7 @@ public class Potion {
     }
 
     // Propriétés de la potion
-    private List<Alliments.TypeAliment> ingredients;
+    private List<Aliments.TypeAliment> ingredients;
     private int dosesRestantes;
     private static final int DOSES_PAR_MARMITE = 10;
     private boolean estNourrissante;
@@ -54,7 +54,7 @@ public class Potion {
         this.avecJusDeBetterave = false;
 
         // Ajouter les ingrédients de base
-        for (Alliments.TypeAliment ingredient : INGREDIENTS_BASE) {
+        for (Aliments.TypeAliment ingredient : INGREDIENTS_BASE) {
             ingredients.add(ingredient);
         }
     }
@@ -63,8 +63,8 @@ public class Potion {
      * Ajoute du homard à la potion (la rend nourrissante)
      */
     public void ajouterHomard() {
-        if (!ingredients.contains(Alliments.TypeAliment.HOMARD)) {
-            ingredients.add(Alliments.TypeAliment.HOMARD);
+        if (!ingredients.contains(Aliments.TypeAliment.HOMARD)) {
+            ingredients.add(Aliments.TypeAliment.HOMARD);
             estNourrissante = true;
             System.out.println("✓ Homard ajouté ! La potion est maintenant nourrissante.");
         } else {
@@ -76,8 +76,8 @@ public class Potion {
      * Ajoute des fraises à la potion (la rend nourrissante)
      */
     public void ajouterFraises() {
-        if (!ingredients.contains(Alliments.TypeAliment.FRAISES)) {
-            ingredients.add(Alliments.TypeAliment.FRAISES);
+        if (!ingredients.contains(Aliments.TypeAliment.FRAISES)) {
+            ingredients.add(Aliments.TypeAliment.FRAISES);
             estNourrissante = true;
             System.out.println("✓ Fraises ajoutées ! La potion est maintenant nourrissante.");
         } else {
@@ -89,9 +89,9 @@ public class Potion {
      * Remplace l'huile de roche par du jus de betterave (la rend nourrissante)
      */
     public void remplacerParJusDeBetterave() {
-        if (ingredients.contains(Alliments.TypeAliment.HUILE_DE_ROCHE)) {
-            ingredients.remove(Alliments.TypeAliment.HUILE_DE_ROCHE);
-            ingredients.add(Alliments.TypeAliment.JUS_DE_BETTERAVE);
+        if (ingredients.contains(Aliments.TypeAliment.HUILE_DE_ROCHE)) {
+            ingredients.remove(Aliments.TypeAliment.HUILE_DE_ROCHE);
+            ingredients.add(Aliments.TypeAliment.JUS_DE_BETTERAVE);
             estNourrissante = true;
             avecJusDeBetterave = true;
             System.out.println("✓ Huile de roche remplacée par du jus de betterave ! La potion est maintenant nourrissante.");
@@ -104,8 +104,8 @@ public class Potion {
      * Ajoute du lait de licorne à deux têtes (octroie le pouvoir de dédoublement)
      */
     public void ajouterLaitDeLicorne() {
-        if (!ingredients.contains(Alliments.TypeAliment.LAIT_DE_LICORNE)) {
-            ingredients.add(Alliments.TypeAliment.LAIT_DE_LICORNE);
+        if (!ingredients.contains(Aliments.TypeAliment.LAIT_DE_LICORNE)) {
+            ingredients.add(Aliments.TypeAliment.LAIT_DE_LICORNE);
             System.out.println("✓ Lait de licorne à deux têtes ajouté ! Octroie le pouvoir de dédoublement.");
         } else {
             System.out.println("⚠️  Le lait de licorne a déjà été ajouté !");
@@ -116,8 +116,8 @@ public class Potion {
      * Ajoute des poils d'Idéfix (octroie le pouvoir de métamorphosis)
      */
     public void ajouterPoilsIdefix() {
-        if (!ingredients.contains(Alliments.TypeAliment.POILS_IDEFIX)) {
-            ingredients.add(Alliments.TypeAliment.POILS_IDEFIX);
+        if (!ingredients.contains(Aliments.TypeAliment.POILS_IDEFIX)) {
+            ingredients.add(Aliments.TypeAliment.POILS_IDEFIX);
             System.out.println("✓ Poils d'Idéfix ajoutés ! Octroie le pouvoir de métamorphosis (lycanthrope).");
         } else {
             System.out.println("⚠️  Les poils d'Idéfix ont déjà été ajoutés !");
@@ -129,15 +129,15 @@ public class Potion {
      */
     public boolean estValide() {
         // Vérifier les ingrédients essentiels (sauf huile de roche qui peut être remplacée)
-        for (Alliments.TypeAliment ingredient : INGREDIENTS_BASE) {
-            if (ingredient != Alliments.TypeAliment.HUILE_DE_ROCHE && !ingredients.contains(ingredient)) {
+        for (Aliments.TypeAliment ingredient : INGREDIENTS_BASE) {
+            if (ingredient != Aliments.TypeAliment.HUILE_DE_ROCHE && !ingredients.contains(ingredient)) {
                 return false;
             }
         }
 
         // Vérifier que huile de roche OU jus de betterave est présent
-        if (!ingredients.contains(Alliments.TypeAliment.HUILE_DE_ROCHE) &&
-            !ingredients.contains(Alliments.TypeAliment.JUS_DE_BETTERAVE)) {
+        if (!ingredients.contains(Aliments.TypeAliment.HUILE_DE_ROCHE) &&
+            !ingredients.contains(Aliments.TypeAliment.JUS_DE_BETTERAVE)) {
             return false;
         }
 
@@ -196,12 +196,12 @@ public class Potion {
         System.out.println("🛡️  Invincibilité " + (permanent ? "(permanente)" : "(temporaire)"));
 
         // Effets additionnels selon les ingrédients spéciaux
-        if (ingredients.contains(Alliments.TypeAliment.LAIT_DE_LICORNE)) {
+        if (ingredients.contains(Aliments.TypeAliment.LAIT_DE_LICORNE)) {
             effets.add(Effet.DEDOUBLEMENT);
             System.out.println("👥 Pouvoir de dédoublement " + (permanent ? "(permanent)" : "(temporaire)"));
         }
 
-        if (ingredients.contains(Alliments.TypeAliment.POILS_IDEFIX)) {
+        if (ingredients.contains(Aliments.TypeAliment.POILS_IDEFIX)) {
             effets.add(Effet.METAMORPHOSIS);
             System.out.println("🐺 Métamorphosis - lycanthrope " + (permanent ? "(permanent)" : "(temporaire)"));
         }
@@ -219,7 +219,7 @@ public class Potion {
         return estNourrissante;
     }
 
-    public List<Alliments.TypeAliment> getIngredients() {
+    public List<Aliments.TypeAliment> getIngredients() {
         return new ArrayList<>(ingredients);
     }
 
@@ -231,7 +231,7 @@ public class Potion {
         System.out.println("Doses restantes : " + dosesRestantes + "/" + DOSES_PAR_MARMITE);
         System.out.println("Nourrissante : " + (estNourrissante ? "Oui" : "Non"));
         System.out.println("\nIngrédients :");
-        for (Alliments.TypeAliment ingredient : ingredients) {
+        for (Aliments.TypeAliment ingredient : ingredients) {
             System.out.println("  - " + ingredient.getNom());
         }
         System.out.println();
@@ -243,7 +243,7 @@ public class Potion {
     public static void afficherRecette() {
         System.out.println("\n=== Recette de la potion magique ===");
         System.out.println("Ingrédients de base :");
-        for (Alliments.TypeAliment ingredient : INGREDIENTS_BASE) {
+        for (Aliments.TypeAliment ingredient : INGREDIENTS_BASE) {
             System.out.println("  - " + ingredient.getNom());
         }
         System.out.println("\nOptions nourrissantes :");

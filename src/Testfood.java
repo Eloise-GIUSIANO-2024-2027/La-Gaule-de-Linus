@@ -1,4 +1,4 @@
-import consomable.Alliments;
+import consomable.Aliments;
 import consomable.Potion;
 
 import java.util.Scanner;
@@ -8,7 +8,7 @@ import java.util.List;
 public class Testfood {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        List<Alliments> historiqueRepas = new ArrayList<>();
+        List<Aliments> historiqueRepas = new ArrayList<>();
         Potion potionMagique = null;
 
         System.out.println("/-/ Bienvenue dans La Gaule de Linus /-/\n");
@@ -20,8 +20,8 @@ public class Testfood {
         System.out.print("Votre choix (1 ou 2) : ");
 
         int choixPersonnage = scanner.nextInt();
-        Alliments.TypePersonnage personnage = (choixPersonnage == 2) ?
-            Alliments.TypePersonnage.ROMAIN : Alliments.TypePersonnage.GAULOIS;
+        Aliments.TypePersonnage personnage = (choixPersonnage == 2) ?
+            Aliments.TypePersonnage.ROMAIN : Aliments.TypePersonnage.GAULOIS;
 
         System.out.println("\nVous êtes un " + personnage + " !\n");
 
@@ -42,11 +42,11 @@ public class Testfood {
 
             switch (choix) {
                 case 1:
-                    Alliments.afficherTousLesAliments();
+                    Aliments.afficherTousLesAliments();
                     break;
 
                 case 2:
-                    Alliments.afficherAlimentsConsommables(personnage);
+                    Aliments.afficherAlimentsConsommables(personnage);
                     break;
 
                 case 3:
@@ -70,11 +70,11 @@ public class Testfood {
         scanner.close();
     }
 
-    private static void mangerAliment(Scanner scanner, Alliments.TypePersonnage personnage,
-                                     List<Alliments> historique) {
+    private static void mangerAliment(Scanner scanner, Aliments.TypePersonnage personnage,
+                                     List<Aliments> historique) {
         System.out.println("\n/-/ Choisissez un aliment à manger /-/");
 
-        Alliments.TypeAliment[] aliments = Alliments.TypeAliment.values();
+        Aliments.TypeAliment[] aliments = Aliments.TypeAliment.values();
         for (int i = 0; i < aliments.length; i++) {
             System.out.println((i + 1) + ". " + aliments[i].getNom());
         }
@@ -87,7 +87,7 @@ public class Testfood {
             return;
         }
 
-        Alliments alimentChoisi = new Alliments(aliments[choix - 1]);
+        Aliments alimentChoisi = new Aliments(aliments[choix - 1]);
 
         System.out.println("\n--- Analyse de " + alimentChoisi.getNom() + " ---");
 
@@ -101,12 +101,12 @@ public class Testfood {
         }
 
         // Vérifier si c'est mauvais pour la santé
-        Alliments dernierAliment = historique.isEmpty() ? null : historique.get(historique.size() - 1);
+        Aliments dernierAliment = historique.isEmpty() ? null : historique.get(historique.size() - 1);
 
         if (alimentChoisi.estMauvaisPourLaSante(dernierAliment)) {
             System.out.println("\n⚠️  DANGER POUR LA SANTÉ !");
 
-            if (alimentChoisi.getAliment() == Alliments.TypeAliment.POISSON_PAS_FRAIS) {
+            if (alimentChoisi.getAliment() == Aliments.TypeAliment.POISSON_PAS_FRAIS) {
                 System.out.println("   Le poisson pas frais est dangereux pour la santé !");
             } else if (dernierAliment != null && alimentChoisi.getAliment().estVegetal()
                        && dernierAliment.getAliment().estVegetal()) {

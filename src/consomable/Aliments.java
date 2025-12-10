@@ -1,6 +1,6 @@
 package consomable;
 
-public class Alliments {
+public class Aliments {
     
     // Énumération des types d'aliments
     public enum TypeAliment {
@@ -66,7 +66,7 @@ public class Alliments {
     
     private TypeAliment aliment;
     
-    public Alliments(TypeAliment aliment) {
+    public Aliments(TypeAliment aliment) {
         this.aliment = aliment;
     }
     
@@ -100,7 +100,7 @@ public class Alliments {
     /**
      * Vérifie si manger cet aliment après le précédent est mauvais pour la santé
      */
-    public boolean estMauvaisPourLaSante(Alliments alimentPrecedent) {
+    public boolean estMauvaisPourLaSante(Aliments alimentPrecedent) {
         // Le poisson pas frais est toujours mauvais pour la santé
         if (aliment.estDangereux()) {
             return true;
@@ -138,7 +138,7 @@ public class Alliments {
     public static void afficherAlimentsConsommables(TypePersonnage personnage) {
         System.out.println("=== Aliments consommables par les " + personnage + " ===");
         for (TypeAliment type : TypeAliment.values()) {
-            Alliments nourriture = new Alliments(type);
+            Aliments nourriture = new Aliments(type);
             if (nourriture.estConsommablePar(personnage)) {
                 System.out.println("- " + type.getNom());
             }

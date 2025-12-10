@@ -24,6 +24,7 @@ public class Menu {
     public static void lancerJeu() {
         Scanner scanner = new Scanner(System.in);
         boolean continuer = true;
+        Inventaire inventaire = new Inventaire(); // Créer une instance d'inventaire pour le jeu
 
         while(continuer) { // Boucle pour que le menu se réaffiche
 
@@ -36,7 +37,7 @@ public class Menu {
                 case "1":
                     pause();
                     System.out.println("\n");
-                    Carte Carte = new Carte();
+                    Carte carte = new Carte(inventaire);
 //                    continuer = false;
                     break;
                 case "2":
@@ -46,8 +47,8 @@ public class Menu {
                     break;
                 case "3":
                     System.out.println("\n");
-                    System.out.println("Consultation de l'Inventaire...");
-                    continuer = false;
+                    inventaire.gererInventaire();
+//                    continuer = false;
                     break;
                 case "4":
                     System.out.println("\n");

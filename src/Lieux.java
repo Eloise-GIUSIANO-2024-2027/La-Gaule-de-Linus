@@ -23,6 +23,10 @@ public class Lieux {
         return ConquerieOuBienNan;
     }
 
+    public void setConquerieOuBienNan(String ConquerieOuBienNan) {
+        this.ConquerieOuBienNan = ConquerieOuBienNan;
+    }
+
     public String getNom() {
         return nom;
     }
