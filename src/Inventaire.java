@@ -109,10 +109,10 @@ public class Inventaire {
         while (continuer) {
             afficherInventaire();
             System.out.println("/-/ GESTION DE L'INVENTAIRE /-/");
-            System.out.println("1. Créer une potion magique            ");
-            System.out.println("2. Utiliser une potion                 ");
-            System.out.println("3. Consommer un aliment                ");
-            System.out.println("4. Retour au menu principal            ");
+            System.out.println("1. Créer une potion magique ");
+            System.out.println("2. Utiliser une potion ");
+            System.out.println("3. Consommer un aliment ");
+            System.out.println("4. Retour au menu principal ");
             System.out.print("Votre choix : ");
             
             String choix = scanner.nextLine().trim();

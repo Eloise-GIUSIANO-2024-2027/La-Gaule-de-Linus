@@ -1,8 +1,7 @@
 package consomable;
 
 public class Aliments {
-    
-    // Énumération des types d'aliments
+
     public enum TypeAliment {
         SANGLIER("Sanglier", TypeCategorie.VIANDE),
         POISSON_PASSABLEMENT_FRAIS("Poisson passablement frais", TypeCategorie.POISSON),
@@ -47,8 +46,7 @@ public class Aliments {
             return this == POISSON_PAS_FRAIS;
         }
     }
-    
-    // Énumération des catégories d'aliments
+
     public enum TypeCategorie {
         VIANDE,
         POISSON,
@@ -57,8 +55,7 @@ public class Aliments {
         BOISSON,
         INGREDIENT_SPECIAL
     }
-    
-    // Énumération des types de personnages
+
     public enum TypePersonnage {
         GAULOIS,
         ROMAIN
@@ -77,10 +74,7 @@ public class Aliments {
     public String getNom() {
         return aliment.getNom();
     }
-    
-    /**
-     * Vérifie si un aliment est consommable par un type de personnage
-     */
+
     public boolean estConsommablePar(TypePersonnage personnage) {
         switch (personnage) {
             case GAULOIS:
@@ -96,12 +90,8 @@ public class Aliments {
                 return false;
         }
     }
-    
-    /**
-     * Vérifie si manger cet aliment après le précédent est mauvais pour la santé
-     */
+
     public boolean estMauvaisPourLaSante(Aliments alimentPrecedent) {
-        // Le poisson pas frais est toujours mauvais pour la santé
         if (aliment.estDangereux()) {
             return true;
         }
@@ -120,23 +110,17 @@ public class Aliments {
     public String toString() {
         return aliment.getNom() + " (" + aliment.getCategorie() + ")";
     }
-    
-    /**
-     * Affiche tous les aliments disponibles
-     */
+
     public static void afficherTousLesAliments() {
-        System.out.println("=== Liste des aliments disponibles ===");
+        System.out.println("/-/ Liste des aliments disponibles /-/");
         for (TypeAliment type : TypeAliment.values()) {
             System.out.println("- " + type.getNom());
         }
         System.out.println();
     }
-    
-    /**
-     * Affiche les aliments consommables par un type de personnage
-     */
+
     public static void afficherAlimentsConsommables(TypePersonnage personnage) {
-        System.out.println("=== Aliments consommables par les " + personnage + " ===");
+        System.out.println("/-/ Aliments consommables par les " + personnage + " /-/");
         for (TypeAliment type : TypeAliment.values()) {
             Aliments nourriture = new Aliments(type);
             if (nourriture.estConsommablePar(personnage)) {
