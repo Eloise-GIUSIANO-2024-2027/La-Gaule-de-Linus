@@ -4,13 +4,41 @@ import java.util.Scanner;
 
 public class Carte {
 
-    Lieux Beurk = new Lieux("Beurk", 25,"OUI","La Mere A Thomas", 8, "Sanglier", "VillageGaulois");
-    Lieux Cielus = new Lieux("Cielus", 28,"NAN" ,"La Mere A Thomas", 3, "Sanglier", "VillageGaulois");
-    Lieux Babaorum = new Lieux("Babaorum", 12, "NAN" ,"La Mere A Dimitri", 4, "Sanglier", "CampRomain");
-    Lieux Aquarium = new Lieux("Aquarium", 58, "NAN","Ma Mere", 9, "Sanglier", "VilleRomain");
-    Lieux Laudanum = new Lieux("Laudanum", 28, "NAN", "La Mere De Anni", 6, "Sanglier", "BourgadeGalloRomaine");
-    Lieux Tiramisum = new Lieux("Tiramisum", 9, "NAN","La Mere De Emmanuel Macron", 3, "Sanglier", "Enclos");
-    Lieux Hélium = new Lieux("Hélium", 150, "NAN","La Mere de Chantal Ladessous", 20, "Sanglier", "ChampsBataille");
+    public static Lieux Beurk = new Lieux("Beurk", 25,"OUI","La Mere A Thomas", 8, "Sanglier", "VillageGaulois");
+    public static Lieux Cielus = new Lieux("Cielus", 28,"NAN" ,"La Mere A Thomas", 3, "Sanglier", "VillageGaulois");
+    public static Lieux Babaorum = new Lieux("Babaorum", 12, "NAN" ,"La Mere A Dimitri", 4, "Sanglier", "CampRomain");
+    public static Lieux Aquarium = new Lieux("Aquarium", 58, "NAN","Ma Mere", 9, "Sanglier", "VilleRomain");
+    public static Lieux Laudanum = new Lieux("Laudanum", 28, "NAN", "La Mere De Anni", 6, "Sanglier", "BourgadeGalloRomaine");
+    public static Lieux Tiramisum = new Lieux("Tiramisum", 9, "NAN","La Mere De Emmanuel Macron", 3, "Sanglier", "Enclos");
+    public static Lieux Helium = new Lieux("Helium", 150, "NAN","La Mere de Chantal Ladessous", 20, "Sanglier", "ChampsBataille");
+
+    public static Lieux getBeurk() {
+        return Beurk;
+    }
+
+    public static Lieux getCielus() {
+        return Cielus;
+    }
+
+    public static Lieux getBabaorum() {
+        return Babaorum;
+    }
+
+    public static Lieux getAquarium() {
+        return Aquarium;
+    }
+
+    public static Lieux getLaudanum() {
+        return Laudanum;
+    }
+
+    public static Lieux getTiramisum() {
+        return Tiramisum;
+    }
+
+    public static Lieux getHelium() {
+        return Helium;
+    }
 
     private List<Lieux> TousLesLieux = new ArrayList<>();
     boolean renseignement = true;
@@ -32,7 +60,7 @@ public class Carte {
         TousLesLieux.add(Aquarium);
         TousLesLieux.add(Laudanum);
         TousLesLieux.add(Tiramisum);
-        TousLesLieux.add(Hélium);
+        TousLesLieux.add(Helium);
 
         System.out.println("Et PAF! Voila la carte!");
         pause();

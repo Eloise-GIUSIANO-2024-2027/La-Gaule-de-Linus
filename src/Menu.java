@@ -8,7 +8,8 @@ public class Menu {
                 "\n" + "2. Renseignement" +
                 "\n" + "3. Inventaire" +
                 "\n" + "4. Activation du mode loup-garou (non actif)" +
-                "\n" + "5. Quitter";
+                "\n" + "5. Theatre d'envahissement" +
+                "\n" + "6. Quitter";
     }
 
     private static void pause() {
@@ -36,7 +37,7 @@ public class Menu {
                 case "1":
                     pause();
                     System.out.println("\n");
-                    Carte Carte = new Carte();
+                    Carte maCarte = new Carte();
 //                    continuer = false;
                     break;
                 case "2":
@@ -55,6 +56,12 @@ public class Menu {
                     continuer = false;
                     break;
                 case "5":
+                    System.out.println("\n");
+//                    System.out.println("Théatre d'envahissement");
+                    Theatre theaaaatre = new Theatre();
+//                    continuer = false;
+                    break;
+                case "6":
                     System.out.println("\n");
                     System.out.println("La Gaule attendras avec patience votre retours");
                     continuer = false;

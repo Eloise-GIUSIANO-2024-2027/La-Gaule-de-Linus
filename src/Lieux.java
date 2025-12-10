@@ -71,26 +71,26 @@ public class Lieux {
         this.TypeLieux = TypeLieux;
     }
 
-//    public void SpecificationLieux() {
-//        if (this.TypeLieux.equals("VillageGaulois")) {
-//
-//        }
-//        if (this.TypeLieux.equals("CampRomain")) {
-//
-//        }
-//        if (this.TypeLieux.equals("VilleRomain")) {
-//
-//        }
-//        if (this.TypeLieux.equals("BourgadeGalloRomaine")) {
-//
-//        }
-//        if (this.TypeLieux.equals("Enclos")) {
-//
-//        }
-//        if (this.TypeLieux.equals("ChampsBataille")) {
-//
-//        }
-//    }
+    public void SpecificationLieux() {
+        if (this.TypeLieux.equals("VillageGaulois")) {
+
+        }
+        if (this.TypeLieux.equals("CampRomain")) {
+
+        }
+        if (this.TypeLieux.equals("VilleRomain")) {
+
+        }
+        if (this.TypeLieux.equals("BourgadeGalloRomaine")) {
+
+        }
+        if (this.TypeLieux.equals("Enclos")) {
+
+        }
+        if (this.TypeLieux.equals("ChampsBataille")) {
+
+        }
+    }
 
     public  String toString() {
         return "Nom : " + this.nom + " | Type : " + this.TypeLieux;
