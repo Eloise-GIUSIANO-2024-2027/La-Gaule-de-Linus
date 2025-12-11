@@ -61,7 +61,7 @@ public class Potion {
         if (!ingredients.contains(Aliments.TypeAliment.HOMARD)) {
             ingredients.add(Aliments.TypeAliment.HOMARD);
             estNourrissante = true;
-            System.out.println("✓ Homard ajouté ! La potion est maintenant nourrissante.");
+            System.out.println("Homard ajouté ! La potion est maintenant nourrissante.");
         } else {
             System.out.println(" Le homard a déjà été ajouté !");
         }
@@ -74,7 +74,7 @@ public class Potion {
         if (!ingredients.contains(Aliments.TypeAliment.FRAISES)) {
             ingredients.add(Aliments.TypeAliment.FRAISES);
             estNourrissante = true;
-            System.out.println("✓ Fraises ajoutées ! La potion est maintenant nourrissante.");
+            System.out.println("Fraises ajoutées ! La potion est maintenant nourrissante.");
         } else {
             System.out.println(" Les fraises ont déjà été ajoutées !");
         }
@@ -89,7 +89,7 @@ public class Potion {
             ingredients.add(Aliments.TypeAliment.JUS_DE_BETTERAVE);
             estNourrissante = true;
             avecJusDeBetterave = true;
-            System.out.println("✓ Huile de roche remplacée par du jus de betterave ! La potion est maintenant nourrissante.");
+            System.out.println("Huile de roche remplacée par du jus de betterave ! La potion est maintenant nourrissante.");
         } else {
             System.out.println(" L'huile de roche a déjà été remplacée ou n'est plus présente !");
         }
@@ -101,7 +101,7 @@ public class Potion {
     public void ajouterLaitDeLicorne() {
         if (!ingredients.contains(Aliments.TypeAliment.LAIT_DE_LICORNE)) {
             ingredients.add(Aliments.TypeAliment.LAIT_DE_LICORNE);
-            System.out.println("✓ Lait de licorne à deux têtes ajouté ! Octroie le pouvoir de dédoublement.");
+            System.out.println(" Lait de licorne à deux têtes ajouté ! Octroie le pouvoir de dédoublement.");
         } else {
             System.out.println(" Le lait de licorne a déjà été ajouté !");
         }
@@ -113,7 +113,7 @@ public class Potion {
     public void ajouterPoilsIdefix() {
         if (!ingredients.contains(Aliments.TypeAliment.POILS_IDEFIX)) {
             ingredients.add(Aliments.TypeAliment.POILS_IDEFIX);
-            System.out.println("✓ Poils d'Idéfix ajoutés ! Octroie le pouvoir de métamorphosis (lycanthrope).");
+            System.out.println(" Poils d'Idéfix ajoutés ! Octroie le pouvoir de métamorphosis (lycanthrope).");
         } else {
             System.out.println(" Les poils d'Idéfix ont déjà été ajoutés !");
         }

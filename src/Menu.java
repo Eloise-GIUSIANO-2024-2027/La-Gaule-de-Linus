@@ -1,6 +1,8 @@
 import java.util.List;
 import java.util.Scanner;
 
+import consomable.Aliments;
+
 public class Menu {
 
     public static String getMenu(){
@@ -23,13 +25,11 @@ public class Menu {
         }
     }
 
-
     public static void lancerJeu() {
         Scanner scanner = new Scanner(System.in);
         boolean continuer = true;
 
         while(continuer) {
-
             System.out.println("\n" + getMenu());
             System.out.print("Entrez votre choix : ");
 
@@ -48,8 +48,8 @@ public class Menu {
                     break;
                 case "3":
                     System.out.println("\n");
-                    System.out.println("Consultation de l'Inventaire...");
-                    continuer = false;
+                    Inventaire.gererInventaire();
+//                    continuer = false;
                     break;
                 case "4":
                     System.out.println("\n");
@@ -84,7 +84,6 @@ public class Menu {
     }
 
     private static void entrerModeChefDeClan(Scanner scanner) {
-
         System.out.println("\n--- Choix du Chef de Clan ---");
         System.out.println("0. " + Theatre.chefDepart.getNom() + " (Théâtre 0 - Départ)");
         System.out.println("1. " + Theatre.chefFacile.getNom() + " (Théâtre I)");
@@ -146,160 +145,7 @@ public class Menu {
                     gererLieuxDuChef(scanner, chef, theatreActuel);
                     break;
                 case "2":
-                    System.out.println("\n--- Création d'un nouveau personnage ---");
-
-                    System.out.println("\nDans quel lieu voulez-vous créer ce personnage ?");
-                    List<Lieux> lieuxDuTheatre = theatreActuel.getLieuxContenus();
-
-                    if (lieuxDuTheatre.isEmpty()) {
-                        System.out.println("Ce théâtre ne possède aucun lieu.");
-                        break;
-                    }
-
-                    for (int i = 0; i < lieuxDuTheatre.size(); i++) {
-                        System.out.println((i + 1) + ". " + lieuxDuTheatre.get(i).getNom() + " (" + lieuxDuTheatre.get(i).getTypeLieux() + ")");
-                    }
-
-                    System.out.print("Choix du lieu : ");
-                    String choixLieuCreation = scanner.nextLine().trim();
-
-                    Lieux lieuDeCreation = null;
-                    try {
-                        int idxLieu = Integer.parseInt(choixLieuCreation) - 1;
-                        if (idxLieu >= 0 && idxLieu < lieuxDuTheatre.size()) {
-                            lieuDeCreation = lieuxDuTheatre.get(idxLieu);
-                        } else {
-                            System.out.println("Choix invalide.");
-                            break;
-                        }
-                    } catch (NumberFormatException e) {
-                        System.out.println("Entrée invalide.");
-                        break;
-                    }
-
-                    Lieux lieuOriginal = chef.getLieu();
-                    chef.setLieu(lieuDeCreation);
-
-                    System.out.print("Nom du personnage : ");
-                    String nomPerso = scanner.nextLine().trim();
-
-                    System.out.println("\nType de personnage :");
-                    System.out.println("1. Gaulois");
-                    System.out.println("2. Romain");
-                    System.out.println("3. Créature (Lycanthrope)");
-                    System.out.print("Choix : ");
-                    String choixType = scanner.nextLine().trim();
-
-                    CharacterType type = CharacterType.GAULOIS;
-                    switch (choixType) {
-                        case "1":
-                            type = CharacterType.GAULOIS;
-                            break;
-                        case "2":
-                            type = CharacterType.ROMAIN;
-                            break;
-                        case "3":
-                            type = CharacterType.CREATURE;
-                            break;
-                        default:
-                            System.out.println("Choix invalide, Gaulois par défaut.");
-                    }
-
-                    CharacterRole role = null;
-                    if (type == CharacterType.GAULOIS) {
-                        System.out.println("\nRôle du Gaulois :");
-                        System.out.println("1. Marchand");
-                        System.out.println("2. Aubergiste");
-                        System.out.println("3. Forgeron");
-                        System.out.println("4. Druide");
-                        System.out.println("5. Aléatoire");
-                        System.out.print("Choix : ");
-                        String choixRole = scanner.nextLine().trim();
-                        switch (choixRole) {
-                            case "1":
-                                role = CharacterRole.MARCHAND;
-                                break;
-                            case "2":
-                                role = CharacterRole.AUBERGISTE;
-                                break;
-                            case "3":
-                                role = CharacterRole.FORGERON;
-                                break;
-                            case "4":
-                                role = CharacterRole.DRUIDE;
-                                break;
-                            case "5":
-                            default:
-                                role = null;
-                        }
-                    } else if (type == CharacterType.ROMAIN) {
-                        System.out.println("\nRôle du Romain :");
-                        System.out.println("1. Légionnaire");
-                        System.out.println("2. Préfet");
-                        System.out.println("3. Général");
-                        System.out.println("4. Aléatoire");
-                        System.out.print("Choix : ");
-                        String choixRole = scanner.nextLine().trim();
-                        switch (choixRole) {
-                            case "1":
-                                role = CharacterRole.LEGIONNAIRE;
-                                break;
-                            case "2":
-                                role = CharacterRole.PREFET;
-                                break;
-                            case "3":
-                                role = CharacterRole.GENERAL;
-                                break;
-                            case "4":
-                            default:
-                                role = null;
-                        }
-                    } else if (type == CharacterType.CREATURE) {
-                        role = CharacterRole.LYCANTHROPE;
-                    }
-
-                    System.out.print("\nSexe (M/F, appuyez sur Entrée pour aléatoire) : ");
-                    String sexe = scanner.nextLine().trim().toUpperCase();
-                    if (sexe.isEmpty()) {
-                        sexe = null;
-                    } else if (!sexe.equals("M") && !sexe.equals("F")) {
-                        System.out.println("Sexe invalide, sera assigné aléatoirement.");
-                        sexe = null;
-                    }
-
-                    System.out.print("Âge (appuyez sur Entrée pour aléatoire) : ");
-                    String ageStr = scanner.nextLine().trim();
-                    int age = 0;
-                    if (!ageStr.isEmpty()) {
-                        try {
-                            age = Integer.parseInt(ageStr);
-                            if (age < 18 || age > 60) {
-                                System.out.println("Âge invalide (18-60), sera assigné aléatoirement.");
-                                age = 0;
-                            }
-                        } catch (NumberFormatException e) {
-                            System.out.println("Âge invalide, sera assigné aléatoirement.");
-                            age = 0;
-                        }
-                    }
-
-                    PNJStats persoTest = new PNJStats();
-                    persoTest.setType(type);
-                    persoTest.setRole(role != null ? role : (type == CharacterType.CREATURE ? CharacterRole.LYCANTHROPE : null));
-
-                    if (!lieuDeCreation.peutContenirPersonnage(persoTest)) {
-                        System.out.println("\n La création est annulé");
-                        System.out.println( lieuDeCreation.getMessageRefus(persoTest));
-                        System.out.println("Veuillez choisir un autre type de personnage ou un autre lieu.");
-
-                        chef.setLieu(lieuOriginal);
-                        break;
-                    }
-
-                    PNJStats nouveauPerso = chef.creerPersonnage(nomPerso, type, role, sexe, age);
-                    System.out.println("Personnage créé avec succès dans " + lieuDeCreation.getNom() + " !");
-
-                    chef.setLieu(lieuOriginal);
+                    creerPersonnage(scanner, chef, theatreActuel);
                     break;
                 case "3":
                     chef.soignerPersonnages();
@@ -323,6 +169,10 @@ public class Menu {
                     ajouterAliment(scanner, chef);
                     break;
                 case "10":
+                    new Bataille();
+                    quitter = true;
+                    break;
+                case "11":
                     quitter = true;
                     break;
                 default:
@@ -508,17 +358,17 @@ public class Menu {
         persoTest.setType(type);
         persoTest.setRole(role != null ? role : (type == CharacterType.CREATURE ? CharacterRole.LYCANTHROPE : null));
 
-                    if (!lieuDeCreation.peutContenirPersonnage(persoTest)) {
-                        System.out.println("\n La création est annulé");
-                        System.out.println( lieuDeCreation.getMessageRefus(persoTest));
-                        System.out.println("Veuillez choisir un autre type de personnage ou un autre lieu.");
+        if (!lieuDeCreation.peutContenirPersonnage(persoTest)) {
+            System.out.println("\n⚠ La création est annulée");
+            System.out.println(lieuDeCreation.getMessageRefus(persoTest));
+            System.out.println("Veuillez choisir un autre type de personnage ou un autre lieu.");
 
             chef.setLieu(lieuOriginal);
             return;
         }
 
-                    PNJStats nouveauPerso = chef.creerPersonnage(nomPerso, type, role, sexe, age);
-                    System.out.println("Personnage créé avec succès dans " + lieuDeCreation.getNom() + " !");
+        PNJStats nouveauPerso = chef.creerPersonnage(nomPerso, type, role, sexe, age);
+        System.out.println("Personnage créé avec succès dans " + lieuDeCreation.getNom() + " !");
 
         chef.setLieu(lieuOriginal);
     }
@@ -571,8 +421,8 @@ public class Menu {
         for (int i = 0; i < chef.getSubordonnes().size(); i++) {
             PNJStats p = chef.getSubordonnes().get(i);
             String potionInfo = (p.getPotionAssignee() != null)
-                ? " [Potion: " + p.getPotionAssignee().getDosesRestantes() + " doses]"
-                : " [Pas de potion]";
+                    ? " [Potion: " + p.getPotionAssignee().getDosesRestantes() + " doses]"
+                    : " [Pas de potion]";
             System.out.println((i + 1) + ") " + p.getNom() + potionInfo);
         }
 
@@ -599,14 +449,14 @@ public class Menu {
             } else {
                 potion = chef.getPotionCourante();
                 if (potion == null) {
-                    System.out.println(" Le chef n'a pas de potion. Créez-en une d'abord.");
+                    System.out.println("⚠ Le chef n'a pas de potion. Créez-en une d'abord.");
                     return;
                 }
             }
 
             chef.assignerPotion(cible, potion);
         } else {
-            System.out.println(" Aucun personnage trouvé avec le nom '" + nomRecherche + "'.");
+            System.out.println("⚠ Aucun personnage trouvé avec le nom '" + nomRecherche + "'.");
         }
     }
 
@@ -639,74 +489,52 @@ public class Menu {
 
         PNJStats personnageATransferer = chef.getSubordonnes().get(idxPerso);
 
-                    System.out.println("\nChoisissez le lieu de destination :");
-                    System.out.println("1. Beurk");
-                    System.out.println("2. Cielus");
-                    System.out.println("3. Babaorum");
-                    System.out.println("4. Aquarium");
-                    System.out.println("5. Laudanum");
-                    System.out.println("6. Tiramisum");
-                    System.out.println("7. Helium");
-                    System.out.print("Choix : ");
+        System.out.println("\nChoisissez le lieu de destination :");
+        System.out.println("1. Beurk");
+        System.out.println("2. Cielus");
+        System.out.println("3. Babaorum");
+        System.out.println("4. Aquarium");
+        System.out.println("5. Laudanum");
+        System.out.println("6. Tiramisum");
+        System.out.println("7. Helium");
+        System.out.print("Choix : ");
 
-                    String choixLieu = scanner.nextLine().trim();
-                    Lieux destination = null;
+        String choixLieu = scanner.nextLine().trim();
+        Lieux destination = null;
 
-                    switch (choixLieu) {
-                        case "1":
-                            destination = Carte.Beurk;
-                            break;
-                        case "2":
-                            destination = Carte.Cielus;
-                            break;
-                        case "3":
-                            destination = Carte.Babaorum;
-                            break;
-                        case "4":
-                            destination = Carte.Aquarium;
-                            break;
-                        case "5":
-                            destination = Carte.Laudanum;
-                            break;
-                        case "6":
-                            destination = Carte.Tiramisum;
-                            break;
-                        case "7":
-                            destination = Carte.Helium;
-                            break;
-                        default:
-                            System.out.println("Choix invalide.");
-                            break;
-                    }
+        switch (choixLieu) {
+            case "1":
+                destination = Carte.Beurk;
+                break;
+            case "2":
+                destination = Carte.Cielus;
+                break;
+            case "3":
+                destination = Carte.Babaorum;
+                break;
+            case "4":
+                destination = Carte.Aquarium;
+                break;
+            case "5":
+                destination = Carte.Laudanum;
+                break;
+            case "6":
+                destination = Carte.Tiramisum;
+                break;
+            case "7":
+                destination = Carte.Helium;
+                break;
+            default:
+                System.out.println("Choix invalide.");
+                break;
+        }
 
-                    if (destination != null) {
-                        chef.transfererPersonnageVers(personnageATransferer, destination);
-                        System.out.println(personnageATransferer.getNom() + " a été transféré");
-                    }
-                    break;
-                case "8":
-                    System.out.println("Ajouter un aliment (choisissez le numéro) :");
-                    consomable.Alliments.afficherTousLesAliments();
-                    System.out.print("Nom (ex: SANGLIER) : ");
-                    String alimStr = scanner.nextLine().trim().toUpperCase();
-                    try {
-                        consomable.Alliments.TypeAliment t = consomable.Alliments.TypeAliment.valueOf(alimStr);
-                        chef.ajouterAliment(new consomable.Alliments(t));
-                    } catch (IllegalArgumentException ex) {
-                        System.out.println("Type d'aliment inconnu.");
-                    }
-                    break;
+        if (destination != null) {
+            chef.transfererPersonnageVers(personnageATransferer, destination);
+            System.out.println(personnageATransferer.getNom() + " a été transféré");
+        }
+    }
 
-                case "9":
-                    new Bataille();
-                    quitter = true;
-                    break;
-                case "10":
-                    quitter = true;
-                    break;
-                default:
-                    System.out.println("Choix invalide.");
-            }
     private static void ajouterAliment(Scanner scanner, ChefDeClan chef) {
         System.out.println("Ajouter un aliment (choisissez le numéro) :");
         consomable.Aliments.afficherTousLesAliments();
@@ -719,41 +547,4 @@ public class Menu {
             System.out.println("Type d'aliment inconnu.");
         }
     }
-
-    private static void gererLieuxDuChef(Scanner scanner, ChefDeClan chef, Theatre theatre) {
-        List<Lieux> lieux = theatre.getLieuxContenus();
-
-        if (lieux.isEmpty()) {
-            System.out.println("\nCe théâtre ne possède aucun lieu à examiner.");
-            return;
-        }
-
-        System.out.println("\n--- Choix du Lieu à Examiner ---");
-        for (int i = 0; i < lieux.size(); i++) {
-            System.out.println((i + 1) + ". " + lieux.get(i).getNom() + " (" + lieux.get(i).getTypeLieux() + ")");
-        }
-
-        System.out.print("Entrez le numéro du lieu (ou Entrée pour annuler) : ");
-        String choixLieuStr = scanner.nextLine().trim();
-
-        if (choixLieuStr.isEmpty()) {
-            return;
-        }
-
-        try {
-            int choixLieuIdx = Integer.parseInt(choixLieuStr) - 1;
-
-            if (choixLieuIdx >= 0 && choixLieuIdx < lieux.size()) {
-                Lieux lieuCible = lieux.get(choixLieuIdx);
-                chef.setLieu(lieuCible);
-                chef.examinerLieu();
-
-            } else {
-                System.out.println("Numéro de lieu invalide.");
-            }
-        } catch (NumberFormatException e) {
-            System.out.println("Entrée invalide.");
-        }
-    }
-
 }
