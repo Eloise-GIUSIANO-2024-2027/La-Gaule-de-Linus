@@ -40,7 +40,6 @@ public class Menu {
                     pause();
                     System.out.println("\n");
                     Carte maCarte = new Carte();
-//                    continuer = false;
                     break;
                 case "2":
                     System.out.println("\n");
@@ -60,7 +59,6 @@ public class Menu {
                 case "5":
                     System.out.println("\n");
                     Theatre theaaaatre = new Theatre();
-//                    continuer = false;
                     break;
                 case "6":
                     System.out.println("\n");
@@ -74,7 +72,7 @@ public class Menu {
                     break;
                 default:
                     System.out.println("\n");
-                    System.out.println("Choix non validius. Veuillez entrer un numérius entre 1 et 5");
+                    System.out.println("Choix non validius. Veuillez entrer un numérius entre 1 et 7");
                     break;
             }
 
@@ -88,6 +86,7 @@ public class Menu {
     private static void entrerModeChefDeClan(Scanner scanner) {
 
         System.out.println("\n--- Choix du Chef de Clan ---");
+        System.out.println("0. " + Theatre.chefDepart.getNom() + " (Théâtre 0 - Départ)");
         System.out.println("1. " + Theatre.chefFacile.getNom() + " (Théâtre I)");
         System.out.println("2. " + Theatre.chefMoyen.getNom() + " (Théâtre II)");
         System.out.println("3. " + Theatre.chefDifficile.getNom() + " (Théâtre III)");
@@ -98,6 +97,10 @@ public class Menu {
         Theatre theatreActuel;
 
         switch (choixChef) {
+            case "0":
+                chef = Theatre.chefDepart;
+                theatreActuel = Theatre.theatreDepart;
+                break;
             case "1":
                 chef = Theatre.chefFacile;
                 theatreActuel = Theatre.theatreFacile;
@@ -123,7 +126,8 @@ public class Menu {
 
         boolean quitter = false;
         while (!quitter) {
-            System.out.println("\n--- Mode Chef de Clan : " + chef.getNom() + " (Théâtre " + theatreActuel.getNom() + ") ---");            System.out.println("1. Examiner le lieu");
+            System.out.println("\n--- Mode Chef de Clan : " + chef.getNom() + " (Théâtre " + theatreActuel.getNom() + ") ---");
+            System.out.println("1. Examiner le lieu");
             System.out.println("2. Créer un personnage dans le lieu");
             System.out.println("3. Soigner les personnages du lieu");
             System.out.println("4. Nourrir les personnages du lieu");
@@ -131,7 +135,8 @@ public class Menu {
             System.out.println("6. Faire boire une potion à un personnage");
             System.out.println("7. Transférer un personnage vers un autre lieu (ex : champ de bataille)");
             System.out.println("8. Ajouter un aliment à l'inventaire du chef");
-            System.out.println("9. Quitter le mode chef de clan");
+            System.out.println("9. Lancer une attaque");
+            System.out.println("10. Quitter le mode chef de clan");
             System.out.print("Choix : ");
             String choix = scanner.nextLine().trim();
 
@@ -410,7 +415,12 @@ public class Menu {
                         System.out.println("Type d'aliment inconnu.");
                     }
                     break;
+
                 case "9":
+                    new Bataille();
+                    quitter = true;
+                    break;
+                case "10":
                     quitter = true;
                     break;
                 default:

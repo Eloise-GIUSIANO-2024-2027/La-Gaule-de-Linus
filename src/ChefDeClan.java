@@ -48,7 +48,9 @@ public class ChefDeClan {
 
         List<PNJStats> personnagesDuTheatre = new ArrayList<>();
 
-        if (this.getNom().equals(Theatre.chefFacile.getNom())) {
+        if (this.getNom().equals(Theatre.chefDepart.getNom())) {
+            personnagesDuTheatre = Theatre.personnagesTheatre0;
+        } else if (this.getNom().equals(Theatre.chefFacile.getNom())) {
             personnagesDuTheatre = Theatre.personnagesTheatre1;
         } else if (this.getNom().equals(Theatre.chefMoyen.getNom())) {
             personnagesDuTheatre = Theatre.personnagesTheatre2;
@@ -147,7 +149,9 @@ public class ChefDeClan {
 
             List<PNJStats> listeCible = null;
 
-            if (this.getNom().equals(Theatre.chefFacile.getNom())) {
+            if (this.getNom().equals(Theatre.chefDepart.getNom())) {
+                listeCible = Theatre.personnagesTheatre0;
+            } else if (this.getNom().equals(Theatre.chefFacile.getNom())) {
                 listeCible = Theatre.personnagesTheatre1;
             } else if (this.getNom().equals(Theatre.chefMoyen.getNom())) {
                 listeCible = Theatre.personnagesTheatre2;
@@ -264,7 +268,9 @@ public class ChefDeClan {
         }
 
         List<PNJStats> listeSource = null;
-        if (this.getNom().equals(Theatre.chefFacile.getNom())) {
+        if (this.getNom().equals(Theatre.chefDepart.getNom())) {
+            listeSource = Theatre.personnagesTheatre0;
+        } else if (this.getNom().equals(Theatre.chefFacile.getNom())) {
             listeSource = Theatre.personnagesTheatre1;
         } else if (this.getNom().equals(Theatre.chefMoyen.getNom())) {
             listeSource = Theatre.personnagesTheatre2;
@@ -284,7 +290,9 @@ public class ChefDeClan {
             if (chefDestination != null) {
                 List<PNJStats> listeDestination = null;
 
-                if (chefDestination.getNom().equals(Theatre.chefFacile.getNom())) {
+                if (chefDestination.getNom().equals(Theatre.chefDepart.getNom())) {
+                    listeDestination = Theatre.personnagesTheatre0;
+                } else if (chefDestination.getNom().equals(Theatre.chefFacile.getNom())) {
                     listeDestination = Theatre.personnagesTheatre1;
                 } else if (chefDestination.getNom().equals(Theatre.chefMoyen.getNom())) {
                     listeDestination = Theatre.personnagesTheatre2;
