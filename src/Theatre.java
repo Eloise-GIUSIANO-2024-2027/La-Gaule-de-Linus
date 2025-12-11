@@ -8,7 +8,12 @@ public class Theatre {
     private int NbLieuxMAX;
     private List<Lieux> lieuxContenus;
     private Boolean PossederOuPas;
+    private static Boolean possederTheatre0 = true;
+    private static Boolean possederTheatre1 = false;
+    private static Boolean possederTheatre2 = false;
+    private static Boolean possederTheatre3 = false;
     private ChefDeClan chefDeClan;
+    public static List<PNJStats> personnagesTheatre0 = new ArrayList<>();
     public static List<PNJStats> personnagesTheatre1 = new ArrayList<>();
     public static List<PNJStats> personnagesTheatre2 = new ArrayList<>();
     public static List<PNJStats> personnagesTheatre3 = new ArrayList<>();
@@ -21,19 +26,31 @@ public class Theatre {
         this.chefDeClan = chef;
     }
 
-    public String getNom(){
+    public Boolean getPossederOuPas() {
+        return PossederOuPas;
+    }
+
+    public void setPossederOuPas(Boolean PossederOuPas) {
+        this.PossederOuPas = PossederOuPas;
+    }
+
+    public  String getNom(){
         return nom;
     }
 
     public List<PNJStats> getPersonnagesTheatre(int numeroTheatre) {
-        if (numeroTheatre == 1) {
-            return personnagesTheatre1;
-        } else if (numeroTheatre == 2) {
-            return personnagesTheatre2;
-        } else if (numeroTheatre == 3) {
-            return personnagesTheatre3;
+        switch (numeroTheatre) {
+            case 0:
+                return personnagesTheatre0;
+            case 1:
+                return personnagesTheatre1;
+            case 2:
+                return personnagesTheatre2;
+            case 3:
+                return personnagesTheatre3;
+            default:
+                return new ArrayList<>();
         }
-        return new ArrayList<>();
     }
 
     public List<Lieux> getLieuxContenus() {
@@ -44,13 +61,15 @@ public class Theatre {
         return chefDeClan;
     }
 
-    public static final ChefDeClan chefFacile = new ChefDeClan("Abraracourcix", "M", 50, null);
+    public static final ChefDeClan chefDepart = new ChefDeClan("Abraracourcix", "M", 50, null);
+    public static final ChefDeClan chefFacile = new ChefDeClan("Assurancetourix", "M", 48, null);
     public static final ChefDeClan chefMoyen = new ChefDeClan("Jolitorax", "M", 45, null);
     public static final ChefDeClan chefDifficile = new ChefDeClan("Cetautomotix", "M", 38, null);
 
-    public static Theatre theatreFacile = new Theatre("Théatre I", 2, false, chefFacile);
-    public static Theatre theatreMoyen = new Theatre("Théatre II", 2, false, chefMoyen);
-    public static Theatre theatreDifficile = new Theatre("Théatre III", 2, false, chefDifficile);
+    public static Theatre theatreDepart = new Theatre("Théâtre 0", 1, true, chefDepart);
+    public static Theatre theatreFacile = new Theatre("Théâtre I", 2, false, chefFacile);
+    public static Theatre theatreMoyen = new Theatre("Théâtre II", 2, false, chefMoyen);
+    public static Theatre theatreDifficile = new Theatre("Théâtre III", 2, false, chefDifficile);
 
     public boolean ajouterLieu(Lieux nouveauLieu) {
         if (nouveauLieu == null) {
@@ -70,9 +89,16 @@ public class Theatre {
     }
 
     public static void initialiserLieuxDesTheatres() {
-        // Les lieux sont initialisés manuellement via la méthode ajouterLieu
-        // Cette méthode est conservée pour compatibilité future
-        System.out.println("Initialisation des théâtres...");
+        theatreDepart.ajouterLieu(Carte.getBeurk());
+
+        theatreFacile.ajouterLieu(Carte.getTiramisum());
+        theatreFacile.ajouterLieu(Carte.getCielus());
+
+        theatreMoyen.ajouterLieu(Carte.getLaudanum());
+        theatreMoyen.ajouterLieu(Carte.getBabaorum());
+
+        theatreDifficile.ajouterLieu(Carte.getAquarium());
+        theatreDifficile.ajouterLieu(Carte.getHelium());
     }
 
     private static void pause() {
@@ -85,18 +111,17 @@ public class Theatre {
     }
 
     public Theatre() {
-//        initialiserLieuxDesTheatres();
-
         System.out.println("***BRUIT-DE-TROMPETTE***");
         pause();
-        System.out.println("/-/ Bienvenue dans les Théatre d'envahissement ! /-/");
+        System.out.println("/-/ Bienvenue dans les Théâtre d'envahissement ! /-/");
         pause();
         System.out.println("\n");
         System.out.println("Voici les théatres : ");
         pause();
-        System.out.println("- Théatre I [Facile]");
-        System.out.println("- Théatre II [Moyen]");
-        System.out.println("- Théatre III [Difficile]");
+        System.out.println("- Théâtre 0 [Départ - Déjà conquis]");
+        System.out.println("- Théâtre I [Facile]");
+        System.out.println("- Théâtre II [Moyen]");
+        System.out.println("- Théâtre III [Difficile]");
         pause();
 
         afficherMenuPrincipal();
@@ -122,7 +147,7 @@ public class Theatre {
                     break;
                 case "2":
                     System.out.println("\n");
-                    System.out.println("Allons y ! Souvons la gaule !");
+                    System.out.println("Allons y ! Sauvons la gaule !");
                     continuer = false;
                     break;
                 case "3":
@@ -162,7 +187,9 @@ public class Theatre {
         System.out.println("|        |");
         System.out.println("|________|");
         System.out.println("|");
-        System.out.println("| Voila les renseignement sur les Théatre d'envahissement: ");
+        System.out.println("| Voila les renseignement sur les Théâtre d'envahissement: ");
+        pause();
+        System.out.println("\n" + theatreDepart);
         pause();
         System.out.println("\n" + theatreFacile);
         pause();
@@ -182,14 +209,14 @@ public class Theatre {
             sb.append("Aucun lieu pour le moment.\n");
         } else {
             for (Lieux lieu : this.lieuxContenus) {
-                sb.append(lieu.toString()).append("\n");
+                sb.append("").append(lieu.toString()).append("\n");
             }
         }
-        sb.append("Statut du Théatre : ");
-        if (PossederOuPas == false) {
-            sb.append("Le théatre n'as pas encore était conquis");
+        sb.append("Statut du Théâtre : ");
+        if (this.PossederOuPas == false) {
+            sb.append("Le théâtre n'as pas encore était conquis");
         } else {
-            sb.append("Vous avez conquis ce théatre !");
+            sb.append("Vous avez conquis ce théâtre !");
         }
 
         return sb.toString();

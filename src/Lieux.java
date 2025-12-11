@@ -35,7 +35,9 @@ public class Lieux {
         this.TypeLieux = TypeLieux;
     }
 
-
+    public void setConquerieOuBienNan(String ConquerieOuBienNan) {
+        this.ConquerieOuBienNan = ConquerieOuBienNan;
+    }
 
     public boolean peutContenirPersonnage(PNJStats personnage) {
         if (personnage == null) {
