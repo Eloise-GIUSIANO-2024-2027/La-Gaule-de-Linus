@@ -36,17 +36,12 @@ public class Potion {
             return description;
         }
     }
-
-    // Propriétés de la potion
     private List<Alliments.TypeAliment> ingredients;
     private int dosesRestantes;
     private static final int DOSES_PAR_MARMITE = 10;
     private boolean estNourrissante;
     private boolean avecJusDeBetterave;
 
-    /**
-     * Constructeur d'une nouvelle marmite de potion magique
-     */
     public Potion() {
         this.ingredients = new ArrayList<>();
         this.dosesRestantes = DOSES_PAR_MARMITE;
