@@ -85,6 +85,7 @@ public class Carte {
                     pause();
                     System.out.println("Les renseignements");
                     System.out.println("\n");
+                    renseignementLIEU();
                     renseignement = false;
                     break;
                 case "2":
@@ -112,6 +113,187 @@ public class Carte {
             if (lieu.getConquerieOuBienNan().equals("NAN")) {
                 System.out.println(lieu);            }
         }
+    }
+
+    public void renseignementLIEU (){
+        System.out.println("Pour quels lieux voulez vous des renseignement ? ");
+        System.out.println("\n");
+        System.out.println("1.Beurk");
+        System.out.println("2.Cielus");
+        System.out.println("3.Babaorum");
+        System.out.println("4.Aquarium");
+        System.out.println("5.Laudanum");
+        System.out.println("6.Tiramisum");
+        System.out.println("7.Helium");
+
+        boolean renseignementLIEU = true;
+
+        while(renseignementLIEU) { // Boucle pour que le menu se réaffiche
+            System.out.print("Entrez votre choix : ");
+            String choix = scanner.nextLine().trim().toUpperCase();
+
+            switch (choix) {
+                case "1":
+                    pause();
+                    System.out.println("\n");
+                    System.out.println(toStringBeurk());
+                    renseignementLIEU = false;
+                    break;
+                case "2":
+                    System.out.println("\n");
+                    System.out.println(toStringCielus());
+                    renseignementLIEU = false;
+                    break;
+                case "3":
+                    System.out.println("\n");
+                    System.out.println(toStringBabaorum());
+                    renseignementLIEU = false;
+                    break;
+                case "4":
+                    System.out.println("\n");
+                    System.out.println(toStringAquarium());
+                    renseignementLIEU = false;
+                    break;
+                case "5":
+                    System.out.println("\n");
+                    System.out.println(toStringLaudanum() );
+                    renseignementLIEU = false;
+                    break;
+                case "6":
+                    System.out.println("\n");
+                    System.out.println(toStringTiramisum() );
+                    renseignementLIEU = false;
+                    break;
+                case "7":
+                    System.out.println("\n");
+                    System.out.println(toStringHelium());
+                    renseignementLIEU = false;
+                    break;
+                default:
+                    System.out.println("Choix non valide. Veuillez entrer un numéro sois 1 sois2");
+                    break;
+            }
+        }
+
+    }
+
+    public String toStringBeurk (){
+        StringBuilder sb = new StringBuilder();
+        sb.append("--- ").append(Beurk.getNom()).append(" ---\n");
+        sb.append("Chef de Lieu: ").append(Beurk.getChefDeLieux()).append("\n");
+        sb.append("Nombre de personnages: ").append(Beurk.getNbPersonnages()).append("\n");
+        sb.append("Les aliments sur le lieu: ").append(Beurk.getAliments()).append("\n");
+        sb.append("Superficie : ").append(Beurk.getSuperficie()).append("\n");
+        sb.append("Types de lieu: ").append(Beurk.getTypeLieux()).append("\n");
+        if (Beurk.getConquerieOuBienNan().equals("NAN")) { // ici
+            sb.append("Le lieux n'est pas conquérie").append("\n");
+        }
+        else {
+            sb.append("Le lieux est conquérie").append("\n");
+        }
+        return sb.toString();
+    }
+
+    public String toStringCielus() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("--- ").append(Cielus.getNom()).append(" ---\n");
+        sb.append("Chef de Lieu: ").append(Cielus.getChefDeLieux()).append("\n");
+        sb.append("Nombre de personnages: ").append(Cielus.getNbPersonnages()).append("\n");
+        sb.append("Les aliments sur le lieu: ").append(Cielus.getAliments()).append("\n");
+        sb.append("Superficie : ").append(Cielus.getSuperficie()).append("\n");
+        sb.append("Types de lieu: ").append(Cielus.getTypeLieux()).append("\n");
+        if (Cielus.getConquerieOuBienNan().equals("NAN")) { // ici
+            sb.append("Le lieux n'est pas conquérie").append("\n");
+        }
+        else {
+            sb.append("Le lieux est conquérie").append("\n");
+        }
+        return sb.toString();
+    }
+
+    public String toStringBabaorum() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("--- ").append(Babaorum.getNom()).append(" ---\n");
+        sb.append("Chef de Lieu: ").append(Babaorum.getChefDeLieux()).append("\n");
+        sb.append("Nombre de personnages: ").append(Babaorum.getNbPersonnages()).append("\n");
+        sb.append("Les aliments sur le lieu: ").append(Babaorum.getAliments()).append("\n");
+        sb.append("Superficie : ").append(Babaorum.getSuperficie()).append("\n");
+        sb.append("Types de lieu: ").append(Babaorum.getTypeLieux()).append("\n");
+        if (Babaorum.getConquerieOuBienNan().equals("NAN")) { // ici
+            sb.append("Le lieux n'est pas conquérie").append("\n");
+        }
+        else {
+            sb.append("Le lieux est conquérie").append("\n");
+        }
+        return sb.toString();
+    }
+
+    public String toStringAquarium() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("--- ").append(Aquarium.getNom()).append(" ---\n");
+        sb.append("Chef de Lieu: ").append(Aquarium.getChefDeLieux()).append("\n");
+        sb.append("Nombre de personnages: ").append(Aquarium.getNbPersonnages()).append("\n");
+        sb.append("Les aliments sur le lieu: ").append(Aquarium.getAliments()).append("\n");
+        sb.append("Superficie : ").append(Aquarium.getSuperficie()).append("\n");
+        sb.append("Types de lieu: ").append(Aquarium.getTypeLieux()).append("\n");
+        if (Aquarium.getConquerieOuBienNan().equals("NAN")) { // ici
+            sb.append("Le lieux n'est pas conquérie").append("\n");
+        }
+        else {
+            sb.append("Le lieux est conquérie").append("\n");
+        }
+        return sb.toString();
+    }
+
+    public String toStringLaudanum() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("--- ").append(Laudanum.getNom()).append(" ---\n");
+        sb.append("Chef de Lieu: ").append(Laudanum.getChefDeLieux()).append("\n");
+        sb.append("Nombre de personnages: ").append(Laudanum.getNbPersonnages()).append("\n");
+        sb.append("Les aliments sur le lieu: ").append(Laudanum.getAliments()).append("\n");
+        sb.append("Superficie : ").append(Laudanum.getSuperficie()).append("\n");
+        sb.append("Types de lieu: ").append(Laudanum.getTypeLieux()).append("\n");
+        if (Laudanum.getConquerieOuBienNan().equals("NAN")) { // ici
+            sb.append("Le lieux n'est pas conquérie").append("\n");
+        }
+        else {
+            sb.append("Le lieux est conquérie").append("\n");
+        }
+        return sb.toString();
+    }
+
+    public String toStringTiramisum() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("--- ").append(Tiramisum.getNom()).append(" ---\n");
+        sb.append("Chef de Lieu: ").append(Tiramisum.getChefDeLieux()).append("\n");
+        sb.append("Nombre de personnages: ").append(Tiramisum.getNbPersonnages()).append("\n");
+        sb.append("Les aliments sur le lieu: ").append(Tiramisum.getAliments()).append("\n");
+        sb.append("Superficie : ").append(Tiramisum.getSuperficie()).append("\n");
+        sb.append("Types de lieu: ").append(Tiramisum.getTypeLieux()).append("\n");
+        if (Tiramisum.getConquerieOuBienNan().equals("NAN")) { // ici
+            sb.append("Le lieux n'est pas conquérie").append("\n");
+        }
+        else {
+            sb.append("Le lieux est conquérie").append("\n");
+        }
+        return sb.toString();
+    }
+
+    public String toStringHelium() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("--- ").append(Helium.getNom()).append(" ---\n");
+        sb.append("Chef de Lieu: ").append(Helium.getChefDeLieux()).append("\n");
+        sb.append("Nombre de personnages: ").append(Helium.getNbPersonnages()).append("\n");
+        sb.append("Les aliments sur le lieu: ").append(Helium.getAliments()).append("\n");
+        sb.append("Superficie : ").append(Helium.getSuperficie()).append("\n");
+        sb.append("Types de lieu: ").append(Helium.getTypeLieux()).append("\n");
+        if (Helium.getConquerieOuBienNan().equals("NAN")) { // ici
+            sb.append("Le lieux n'est pas conquérie").append("\n");
+        }
+        else {
+            sb.append("Le lieux est conquérie").append("\n");
+        }
+        return sb.toString();
     }
 
 }
