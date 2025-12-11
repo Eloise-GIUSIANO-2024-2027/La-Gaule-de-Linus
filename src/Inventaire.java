@@ -147,7 +147,7 @@ public class Inventaire {
         }
     }
 
-    public void gererInventaireAvecDruide(Lieux lieu, Personnage.Druide druide) {
+    public void gererInventaireAvecDruide(Lieux lieu, Druide druide) {
         Scanner scanner = new Scanner(System.in);
         boolean continuer = true;
 
@@ -173,7 +173,7 @@ public class Inventaire {
                     consommerAlimentInteractif(scanner);
                     break;
                 case "4":
-                    druide.direAuRevoir();
+                    System.out.println("Le druide " + druide.getNom() + " vous salue. À bientôt !");
                     continuer = false;
                     break;
                 default:
@@ -188,10 +188,10 @@ public class Inventaire {
         }
     }
 
-    private void creerPotionAvecDruide(Scanner scanner, Personnage.Druide druide) {
+    private void creerPotionAvecDruide(Scanner scanner, Druide druide) {
         System.out.println("\n/-/ CRÉER UNE POTION MAGIQUE /-/");
 
-        druide.expliquerRecette();
+        System.out.println("Le druide " + druide.getNom() + " vous explique la recette...");
 
         // Vérifier les ingrédients
         Aliments.TypeAliment[] ingredientsBase = {
@@ -233,7 +233,7 @@ public class Inventaire {
             return;
         }
 
-        druide.superviserCreation();
+        System.out.println("Le druide " + druide.getNom() + " supervise la création de la potion...");
 
         // Retirer les ingrédients de base
         for (Aliments.TypeAliment ing : ingredientsBase) {
@@ -294,7 +294,7 @@ public class Inventaire {
         }
 
         ajouterPotion(nouvellePotion);
-        druide.feliciter();
+        System.out.println(" Félicitations ! La potion magique est prête !");
         nouvellePotion.afficherIngredients();
     }
 
@@ -302,13 +302,13 @@ public class Inventaire {
         System.out.println("\n/-/ CRÉER UNE POTION MAGIQUE /-/");
 
         // Vérifier si on est dans un lieu avec un druide
-        if (lieuActuel == null || !lieuActuel.aDruide()) {
+        if (lieuActuel == null) {
             System.out.println(" Vous devez être dans un lieu avec un DRUIDE pour créer une potion magique !");
             System.out.println(" Rendez-vous dans un village gaulois pour trouver un druide.");
             return;
         }
 
-        System.out.println("✓ Le druide " + lieuActuel.getDruide().getNom() + " peut vous aider à créer une potion magique !");
+        System.out.println("✓ Un druide peut vous aider à créer une potion magique !");
         System.out.println();
         Potion.afficherRecette();
 

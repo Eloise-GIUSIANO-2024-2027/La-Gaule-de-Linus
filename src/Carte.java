@@ -10,7 +10,7 @@ public class Carte {
     Lieux Aquarium = new Lieux("Aquarium", 58, "NAN","Ma Mere", 9, "Sanglier", "VilleRomain");
     Lieux Laudanum = new Lieux("Laudanum", 28, "NAN", "La Mere De Anni", 6, "Sanglier", "BourgadeGalloRomaine");
     Lieux Tiramisum = new Lieux("Tiramisum", 9, "NAN","La Mere De Emmanuel Macron", 3, "Sanglier", "Enclos");
-    Lieux Hélium = new Lieux("Hélium", 150, "NAN","La Mere de Chantal Ladessous", 20, "Sanglier", "ChampsBataille");
+    Lieux Helium = new Lieux("Helium", 150, "NAN","La Mere de Chantal Ladessous", 20, "Sanglier", "ChampsBataille");
 
     private List<Lieux> TousLesLieux = new ArrayList<>();
     boolean renseignement = true;
@@ -32,7 +32,7 @@ public class Carte {
         TousLesLieux.add(Aquarium);
         TousLesLieux.add(Laudanum);
         TousLesLieux.add(Tiramisum);
-        TousLesLieux.add(Hélium);
+        TousLesLieux.add(Helium);
 
         System.out.println("Et PAF! Voila la carte!");
         pause();
@@ -225,6 +225,7 @@ public class Carte {
         } else {
             sb.append("Le lieux est conquérie").append("\n");
         }
+        return sb.toString();
     }
 
     public String toStringTiramisum() {

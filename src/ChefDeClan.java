@@ -3,7 +3,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-import consomable.Alliments;
+import consomable.Aliments;
 import consomable.Potion;
 
 public class ChefDeClan {
@@ -11,7 +11,7 @@ public class ChefDeClan {
     private Lieux lieu;
 
     private final List<PNJStats> subordonnes = new ArrayList<>();
-    private final List<Alliments> inventaireAliments = new ArrayList<>();
+    private final List<Aliments> inventaireAliments = new ArrayList<>();
     private Potion potionCourante = null;
 
     public ChefDeClan(String nom, String sexe, int age, Lieux lieu) {
@@ -76,7 +76,7 @@ public class ChefDeClan {
             System.out.println("'Vous devriez aller chasser ou cueillix quelque chose...'");
         } else {
             for (int i = 0; i < inventaireAliments.size(); i++) {
-                Alliments a = inventaireAliments.get(i);
+                Aliments a = inventaireAliments.get(i);
                 System.out.println("  [" + i+1 + "] " + a.toString());
             }
         }
@@ -186,10 +186,10 @@ public class ChefDeClan {
             return;
         }
 
-        Iterator<Alliments> it = inventaireAliments.iterator();
+        Iterator<Aliments> it = inventaireAliments.iterator();
         for (PNJStats p : subordonnes) {
             if (!it.hasNext()) break;
-            Alliments a = it.next();
+            Aliments a = it.next();
             boolean consommable = a.estConsommablePar(auteurTypeToTypePersonnage(p.getType()));
             if (consommable) {
                 int faimAvant = p.getIndicateurFaim();
@@ -204,16 +204,16 @@ public class ChefDeClan {
         }
     }
 
-    private Alliments.TypePersonnage auteurTypeToTypePersonnage(CharacterType t) {
-        if (t == null) return Alliments.TypePersonnage.GAULOIS;
+    private Aliments.TypePersonnage auteurTypeToTypePersonnage(CharacterType t) {
+        if (t == null) return Aliments.TypePersonnage.GAULOIS;
         switch (t) {
             case GAULOIS:
-                return Alliments.TypePersonnage.GAULOIS;
+                return Aliments.TypePersonnage.GAULOIS;
             case ROMAIN:
-                return Alliments.TypePersonnage.ROMAIN;
+                return Aliments.TypePersonnage.ROMAIN;
             default:
                 System.out.println("/-/ ERREUR /-/");
-                return Alliments.TypePersonnage.GAULOIS;
+                return Aliments.TypePersonnage.GAULOIS;
         }
     }
 
@@ -357,7 +357,7 @@ public class ChefDeClan {
         return true;
     }
 
-    public void ajouterAliment(Alliments aliment) {
+    public void ajouterAliment(Aliments aliment) {
         if (aliment != null) {
             inventaireAliments.add(aliment);
             System.out.println("Aliment ajouté : " + aliment.getNom());

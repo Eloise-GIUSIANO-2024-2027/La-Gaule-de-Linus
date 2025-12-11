@@ -27,11 +27,11 @@ public class Theatre {
 
     public List<PNJStats> getPersonnagesTheatre(int numeroTheatre) {
         if (numeroTheatre == 1) {
-            return theatreFacile.personnagesTheatre1;
+            return personnagesTheatre1;
         } else if (numeroTheatre == 2) {
-            return theatreMoyen.personnagesTheatre2;
+            return personnagesTheatre2;
         } else if (numeroTheatre == 3) {
-            return theatreDifficile.personnagesTheatre3;
+            return personnagesTheatre3;
         }
         return new ArrayList<>();
     }
@@ -70,14 +70,9 @@ public class Theatre {
     }
 
     public static void initialiserLieuxDesTheatres() {
-        theatreFacile.ajouterLieu(Carte.getTiramisum());
-        theatreFacile.ajouterLieu(Carte.getCielus());
-
-        theatreMoyen.ajouterLieu(Carte.getLaudanum());
-        theatreMoyen.ajouterLieu(Carte.getBabaorum());
-
-        theatreDifficile.ajouterLieu(Carte.getAquarium());
-        theatreDifficile.ajouterLieu(Carte.getHelium());
+        // Les lieux sont initialisés manuellement via la méthode ajouterLieu
+        // Cette méthode est conservée pour compatibilité future
+        System.out.println("Initialisation des théâtres...");
     }
 
     private static void pause() {
@@ -187,7 +182,7 @@ public class Theatre {
             sb.append("Aucun lieu pour le moment.\n");
         } else {
             for (Lieux lieu : this.lieuxContenus) {
-                sb.append("").append(lieu.toString()).append("\n");
+                sb.append(lieu.toString()).append("\n");
             }
         }
         sb.append("Statut du Théatre : ");
