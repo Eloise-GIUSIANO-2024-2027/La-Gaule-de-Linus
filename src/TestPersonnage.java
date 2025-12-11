@@ -1,5 +1,3 @@
-import Personnage.*;
-
 public class TestPersonnage {
     public static void main(String[] args) {
         System.out.println("/-/ Test d'attribution des rôles /-/\n");
@@ -35,7 +33,7 @@ public class TestPersonnage {
         System.out.println(forgeron);
 
         PNJStats aubergiste = new PNJStats();
-        aubergiste.setNom("Termomix");
+        aubergiste.setNom("Thermomix");
         aubergiste.setSexe("M");
         aubergiste.setTaille(1.90);
         aubergiste.setAge(46);

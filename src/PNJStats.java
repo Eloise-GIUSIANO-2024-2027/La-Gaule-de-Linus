@@ -1,5 +1,3 @@
-package Personnage;
-
 public class PNJStats {
     private String nom;
     private String sexe;
@@ -13,6 +11,8 @@ public class PNJStats {
     private int niveauPotionMagique;
     private CharacterType type;
     private CharacterRole role;
+    private Lieux lieuActuel;
+    private consomable.Potion potionAssignee;
 
     public PNJStats() {
     }
@@ -32,6 +32,15 @@ public class PNJStats {
         this.niveauPotionMagique = niveauPotionMagique;
         this.type = type;
         this.role = role;
+        this.lieuActuel = null;
+    }
+
+    public Lieux getLieuActuel() {
+        return lieuActuel;
+    }
+
+    public void setLieuActuel(Lieux lieuActuel) {
+        this.lieuActuel = lieuActuel;
     }
 
     public String getNom() {
@@ -128,6 +137,14 @@ public class PNJStats {
 
     public void setRole(CharacterRole role) {
         this.role = role;
+    }
+
+    public consomable.Potion getPotionAssignee() {
+        return potionAssignee;
+    }
+
+    public void assignerPotion(consomable.Potion potion) {
+        this.potionAssignee = potion;
     }
 
     @Override

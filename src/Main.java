@@ -2,7 +2,7 @@ public class Main {
 
     private static void pause() {
         try {
-            Thread.sleep(1500L);
+            Thread.sleep(1500);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             System.err.println("La pause a été interrompue : " + e.getMessage());
@@ -10,8 +10,14 @@ public class Main {
     }
 
     public static void main(String[] args) {
-
-        System.out.println("Bienvenue dans LA GAULE DE LINUS");
+        Theatre.initialiserLieuxDesTheatres();
+        System.out.println("Bienvenue dans");
+        pause();
+        System.out.println("    __             ______            __            __        __    _____   ____  _______\n" +
+                "   / /   ____ _   / ____/___ ___  __/ /__     ____/ /__     / /   /  _/ | / / / / / ___/\n" +
+                "  / /   / __ `/  / / __/ __ `/ / / / / _ \\   / __  / _ \\   / /    / //  |/ / / / /\\__ \\ \n" +
+                " / /___/ /_/ /  / /_/ / /_/ / /_/ / /  __/  / /_/ /  __/  / /____/ // /|  / /_/ /___/ / \n" +
+                "/_____/\\__,_/   \\____/\\__,_/\\__,_/_/\\___/   \\__,_/\\___/  /_____/___/_/ |_/\\____//____/  ");
         pause();
         System.out.println("Nous sommes en 50 avant Jésius-Christius.");
         pause();
