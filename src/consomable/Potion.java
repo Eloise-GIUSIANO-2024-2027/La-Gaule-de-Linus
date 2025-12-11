@@ -68,7 +68,7 @@ public class Potion {
             estNourrissante = true;
             System.out.println("✓ Homard ajouté ! La potion est maintenant nourrissante.");
         } else {
-            System.out.println("⚠️  Le homard a déjà été ajouté !");
+            System.out.println(" Le homard a déjà été ajouté !");
         }
     }
 
@@ -81,7 +81,7 @@ public class Potion {
             estNourrissante = true;
             System.out.println("✓ Fraises ajoutées ! La potion est maintenant nourrissante.");
         } else {
-            System.out.println("⚠️  Les fraises ont déjà été ajoutées !");
+            System.out.println(" Les fraises ont déjà été ajoutées !");
         }
     }
 
@@ -96,7 +96,7 @@ public class Potion {
             avecJusDeBetterave = true;
             System.out.println("✓ Huile de roche remplacée par du jus de betterave ! La potion est maintenant nourrissante.");
         } else {
-            System.out.println("⚠️  L'huile de roche a déjà été remplacée ou n'est plus présente !");
+            System.out.println(" L'huile de roche a déjà été remplacée ou n'est plus présente !");
         }
     }
 
@@ -108,7 +108,7 @@ public class Potion {
             ingredients.add(Alliments.TypeAliment.LAIT_DE_LICORNE);
             System.out.println("✓ Lait de licorne à deux têtes ajouté ! Octroie le pouvoir de dédoublement.");
         } else {
-            System.out.println("⚠️  Le lait de licorne a déjà été ajouté !");
+            System.out.println(" Le lait de licorne a déjà été ajouté !");
         }
     }
 
@@ -120,7 +120,7 @@ public class Potion {
             ingredients.add(Alliments.TypeAliment.POILS_IDEFIX);
             System.out.println("✓ Poils d'Idéfix ajoutés ! Octroie le pouvoir de métamorphosis (lycanthrope).");
         } else {
-            System.out.println("⚠️  Les poils d'Idéfix ont déjà été ajoutés !");
+            System.out.println(" Les poils d'Idéfix ont déjà été ajoutés !");
         }
     }
 
@@ -153,12 +153,12 @@ public class Potion {
         List<Effet> effets = new ArrayList<>();
 
         if (!estValide()) {
-            System.out.println("⚠️  ATTENTION : Cette potion n'est pas valide !");
+            System.out.println(" ATTENTION : Cette potion n'est pas valide !");
             return effets;
         }
 
         if (nombreDoses > dosesRestantes) {
-            System.out.println("⚠️  Pas assez de doses ! Il reste " + dosesRestantes + " dose(s).");
+            System.out.println(" Pas assez de doses ! Il reste " + dosesRestantes + " dose(s).");
             return effets;
         }
 
@@ -168,17 +168,17 @@ public class Potion {
         if (nombreDoses >= 2 * DOSES_PAR_MARMITE) {
             // Deux marmites ou plus = statue de granit
             effets.add(Effet.STATUE_GRANIT);
-            System.out.println("\n💀 ATTENTION ! Vous avez bu " + nombreDoses + " doses (deux marmites ou plus) !");
-            System.out.println("🗿 Vous êtes transformé en statue de granit !");
+            System.out.println("\n ATTENTION ! Vous avez bu " + nombreDoses + " doses (deux marmites ou plus) !");
+            System.out.println(" Vous êtes transformé en statue de granit !");
         } else if (nombreDoses >= DOSES_PAR_MARMITE) {
             // Une marmite complète = effets permanents
-            System.out.println("\n🌟 Vous avez bu une marmite complète !");
-            System.out.println("⚡ Les effets deviennent PERMANENTS !");
+            System.out.println("\n Vous avez bu une marmite complète !");
+            System.out.println(" Les effets deviennent PERMANENTS !");
             ajouterEffetsStandard(effets, true);
         } else {
             // Moins d'une marmite = effets temporaires
-            System.out.println("\n✨ Vous avez bu " + nombreDoses + " dose(s) !");
-            System.out.println("⏳ Les effets sont temporaires.");
+            System.out.println("\n Vous avez bu " + nombreDoses + " dose(s) !");
+            System.out.println(" Les effets sont temporaires.");
             ajouterEffetsStandard(effets, false);
         }
 
@@ -192,22 +192,22 @@ public class Potion {
         effets.add(Effet.FORCE_SURHUMAINE);
         effets.add(Effet.INVINCIBILITE);
 
-        System.out.println("💪 Force surhumaine " + (permanent ? "(permanent)" : "(temporaire)"));
-        System.out.println("🛡️  Invincibilité " + (permanent ? "(permanente)" : "(temporaire)"));
+        System.out.println(" Force surhumaine " + (permanent ? "(permanent)" : "(temporaire)"));
+        System.out.println(" Invincibilité " + (permanent ? "(permanente)" : "(temporaire)"));
 
         // Effets additionnels selon les ingrédients spéciaux
         if (ingredients.contains(Alliments.TypeAliment.LAIT_DE_LICORNE)) {
             effets.add(Effet.DEDOUBLEMENT);
-            System.out.println("👥 Pouvoir de dédoublement " + (permanent ? "(permanent)" : "(temporaire)"));
+            System.out.println(" Pouvoir de dédoublement " + (permanent ? "(permanent)" : "(temporaire)"));
         }
 
         if (ingredients.contains(Alliments.TypeAliment.POILS_IDEFIX)) {
             effets.add(Effet.METAMORPHOSIS);
-            System.out.println("🐺 Métamorphosis - lycanthrope " + (permanent ? "(permanent)" : "(temporaire)"));
+            System.out.println(" Métamorphosis - lycanthrope " + (permanent ? "(permanent)" : "(temporaire)"));
         }
 
         if (estNourrissante) {
-            System.out.println("🍖 La potion est nourrissante !");
+            System.out.println(" La potion est nourrissante !");
         }
     }
 

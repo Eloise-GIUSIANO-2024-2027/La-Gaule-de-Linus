@@ -12,6 +12,7 @@ public class PNJStats {
     private CharacterType type;
     private CharacterRole role;
     private Lieux lieuActuel;
+    private consomable.Potion potionAssignee;
 
     public PNJStats() {
     }
@@ -136,6 +137,14 @@ public class PNJStats {
 
     public void setRole(CharacterRole role) {
         this.role = role;
+    }
+
+    public consomable.Potion getPotionAssignee() {
+        return potionAssignee;
+    }
+
+    public void assignerPotion(consomable.Potion potion) {
+        this.potionAssignee = potion;
     }
 
     @Override

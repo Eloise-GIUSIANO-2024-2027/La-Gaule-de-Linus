@@ -223,6 +223,59 @@ public class ChefDeClan {
         return potionCourante;
     }
 
+    public void assignerPotion(PNJStats unite, Potion potion) {
+        if (unite == null) {
+            System.out.println("'Chef, vous devez spécifier une unité pour lui assigner une potion.'");
+            return;
+        }
+        if (potion == null) {
+            System.out.println("'Chef, aucune potion disponible à assigner.'");
+            return;
+        }
+        if (!subordonnes.contains(unite)) {
+            System.out.println("'Chef, cette unité ne fait pas partie de vos subordonnés.'");
+            return;
+        }
+
+        unite.assignerPotion(potion);
+        System.out.println("\n" + nom + " assigne une potion à " + unite.getNom() + " (" + potion.getDosesRestantes() + " doses disponibles).");
+    }
+
+    public void donnerPotionAUnite(PNJStats unite, int doses) {
+        if (unite == null) {
+            System.out.println("'Chef, vous devez spécifier une unité.'");
+            return;
+        }
+        if (!subordonnes.contains(unite)) {
+            System.out.println("'Chef, cette unité ne fait pas partie de vos subordonnés.'");
+            return;
+        }
+
+        Potion potionUnite = unite.getPotionAssignee();
+        if (potionUnite == null) {
+            System.out.println("'Chef, " + unite.getNom() + " n'a pas de potion assignée.'");
+            return;
+        }
+
+        System.out.println("\n" + nom + " ordonne à " + unite.getNom() + " de boire " + doses + " dose(s) de sa potion...");
+        java.util.List<Potion.Effet> effets = potionUnite.boireDose(doses);
+
+        if (effets.isEmpty()) {
+            System.out.println("La potion n'a eu aucun effecius particulius.");
+            return;
+        }
+
+        int soin = 20 * doses;
+        int sAvant = unite.getIndicateurSante();
+        unite.setIndicateurSante(Math.min(100, sAvant + soin));
+        unite.setNiveauPotionMagique(unite.getNiveauPotionMagique() + doses);
+        System.out.println(" -> " + unite.getNom() + " : santé " + sAvant + " -> " + unite.getIndicateurSante());
+        System.out.println("Effets reçus :");
+        for (Potion.Effet e : effets) {
+            System.out.println("    - " + e.getDescription());
+        }
+    }
+
     public void faireBoirePotion(Potion potion, PNJStats cible, int doses) {
         if (potion == null) {
             System.out.println("Aucune potion disponible, demandez au druide d'en préparer une.");

@@ -305,23 +305,39 @@ public class Menu {
                     chef.demanderPotionAuDruide(druide);
                     break;
                 case "6":
-                    System.out.println("Choisissez l'index du personnage :");
-                    for (int i = 0; i < chef.getSubordonnes().size(); i++) {
-                        System.out.println(i + ") " + chef.getSubordonnes().get(i).getNom());
+                    if (chef.getSubordonnes().isEmpty()) {
+                        System.out.println("Aucun personnage disponible.");
+                        break;
                     }
-                    System.out.print("Index : ");
-                    try {
-                        int idx = Integer.parseInt(scanner.nextLine().trim());
-                        if (idx >= 0 && idx < chef.getSubordonnes().size()) {
-                            PNJStats cible = chef.getSubordonnes().get(idx);
-                            System.out.print("Nombre de doses à faire boire : ");
+
+                    System.out.println("\n--- Faire boire une potion ---");
+                    System.out.println("Personnages disponibles :");
+                    for (int i = 0; i < chef.getSubordonnes().size(); i++) {
+                        PNJStats p = chef.getSubordonnes().get(i);
+                        System.out.println((i + 1) + ") " + p.getNom() + " (Santé: " + p.getIndicateurSante() + ")");
+                    }
+
+                    System.out.print("\nEntrez le nom du personnage : ");
+                    String nomRecherche = scanner.nextLine().trim();
+
+                    PNJStats cible = null;
+                    for (PNJStats p : chef.getSubordonnes()) {
+                        if (p.getNom().equalsIgnoreCase(nomRecherche)) {
+                            cible = p;
+                            break;
+                        }
+                    }
+
+                    if (cible != null) {
+                        System.out.print("Nombre de doses à faire boire : ");
+                        try {
                             int doses = Integer.parseInt(scanner.nextLine().trim());
                             chef.faireBoirePotion(chef.getPotionCourante(), cible, doses);
-                        } else {
-                            System.out.println("Index invalide.");
+                        } catch (NumberFormatException e) {
+                            System.out.println("Nombre de doses invalide.");
                         }
-                    } catch (NumberFormatException e) {
-                        System.out.println("Entrée invalide.");
+                    } else {
+                        System.out.println("Aucun personnage trouvé avec le nom '" + nomRecherche + "'.");
                     }
                     break;
                 case "7":
