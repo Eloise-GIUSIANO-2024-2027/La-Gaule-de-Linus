@@ -303,8 +303,8 @@ public class Inventaire {
 
         // Vérifier si on est dans un lieu avec un druide
         if (lieuActuel == null || !lieuActuel.aDruide()) {
-            System.out.println("❌ Vous devez être dans un lieu avec un DRUIDE pour créer une potion magique !");
-            System.out.println("💡 Rendez-vous dans un village gaulois pour trouver un druide.");
+            System.out.println(" Vous devez être dans un lieu avec un DRUIDE pour créer une potion magique !");
+            System.out.println(" Rendez-vous dans un village gaulois pour trouver un druide.");
             return;
         }
 
@@ -330,16 +330,16 @@ public class Inventaire {
         for (Aliments.TypeAliment ing : ingredientsBase) {
             if (!possedeIngredient(ing, 1)) {
                 tousIngredientsPresents = false;
-                System.out.println("❌ Ingrédient manquant : " + ing.getNom());
+                System.out.println(" Ingrédient manquant : " + ing.getNom());
             }
         }
         
         if (!aHuileOuJus) {
-            System.out.println("❌ Ingrédient manquant : Huile de roche OU Jus de betterave");
+            System.out.println(" Ingrédient manquant : Huile de roche OU Jus de betterave");
         }
         
         if (!tousIngredientsPresents) {
-            System.out.println("\n❌ Vous n'avez pas tous les ingrédients nécessaires !");
+            System.out.println("\n Vous n'avez pas tous les ingrédients nécessaires !");
             return;
         }
         

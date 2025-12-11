@@ -25,7 +25,7 @@ public class Druide {
      * Le druide accueille le visiteur
      */
     public void accueillir() {
-        System.out.println("\n🧙 " + stats.getNom() + " vous accueille chaleureusement !");
+        System.out.println("\n " + stats.getNom() + " vous accueille chaleureusement !");
         System.out.println("   \"Bienvenue, noble gaulois ! Je suis " + stats.getNom() + ", druide de ce village.\"");
         System.out.println("   \"Ma spécialité : " + specialite + "\"");
         System.out.println("   \"Niveau de compétence : " + niveauCompetence + "/100\"");
@@ -36,7 +36,7 @@ public class Druide {
      * Le druide explique la recette de la potion magique
      */
     public void expliquerRecette() {
-        System.out.println("🧙 " + stats.getNom() + " : \"Laissez-moi vous expliquer la recette ancestrale...\"");
+        System.out.println(" " + stats.getNom() + " : \"Laissez-moi vous expliquer la recette ancestrale...\"");
         System.out.println();
         Potion.afficherRecette();
     }
@@ -45,7 +45,7 @@ public class Druide {
      * Le druide supervise la création de la potion
      */
     public void superviserCreation() {
-        System.out.println("\n🧙 " + stats.getNom() + " : \"Suivez mes instructions avec attention...\"");
+        System.out.println("\n" + stats.getNom() + " : \"Suivez mes instructions avec attention...\"");
         System.out.println("   *Le druide prépare le chaudron et allume le feu sacré*");
         System.out.println();
     }
@@ -54,7 +54,7 @@ public class Druide {
      * Le druide félicite pour la réussite
      */
     public void feliciter() {
-        System.out.println("\n✨ " + stats.getNom() + " : \"Magnifique ! La potion est parfaite !\"");
+        System.out.println("\n" + stats.getNom() + " : \"Magnifique ! La potion est parfaite !\"");
         System.out.println("   \"Vous êtes maintenant prêt à affronter les légions romaines !\"");
 
         if (niveauCompetence >= 90) {
@@ -71,7 +71,7 @@ public class Druide {
      * Message d'au revoir du druide
      */
     public void direAuRevoir() {
-        System.out.println("🧙 " + stats.getNom() + " : \"Que Toutatis vous protège dans votre quête !\"");
+        System.out.println(stats.getNom() + " : \"Que Toutatis vous protège dans votre quête !\"");
         System.out.println("   \"Revenez me voir quand vous voudrez préparer une nouvelle potion.\"");
         System.out.println();
     }

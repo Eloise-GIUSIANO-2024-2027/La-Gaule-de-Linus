@@ -30,11 +30,8 @@ public class Carte {
         this.inventaire = inventaire;
 
         // Ajouter des druides dans les villages gaulois
-        Personnage.Druide panoramix = new Personnage.Druide("Panoramix", 65, 100, "Potions de force surhumaine");
-        Beurk.setDruide(panoramix);
-
-        Personnage.Druide diagnostix = new Personnage.Druide("Diagnostix", 58, 95, "Potions de guérison");
-        Cielus.setDruide(diagnostix);
+        Personnage.Druide paforamix = new Personnage.Druide("Panoramix", 65, 100, "Potions de force surhumaine");
+        Beurk.setDruide(paforamix);
 
         TousLesLieux.add(Beurk);
         TousLesLieux.add(Cielus);
@@ -101,7 +98,7 @@ public class Carte {
     }
 
     public void afficherLieuxAvecDruides() {
-        System.out.println("\n🧙 LIEUX AVEC DES DRUIDES :");
+        System.out.println("\n LIEUX AVEC DES DRUIDES :");
         boolean aDruide = false;
         for (int i = 0; i < TousLesLieux.size(); i++) {
             Lieux lieu = TousLesLieux.get(i);
@@ -118,7 +115,7 @@ public class Carte {
     public void visiterLieu(int index) {
         if (index >= 0 && index < TousLesLieux.size()) {
             Lieux lieu = TousLesLieux.get(index);
-            System.out.println("\n🏛️  Vous visitez : " + lieu.getNom());
+            System.out.println("\n️  Vous visitez : " + lieu.getNom());
             System.out.println("Type : " + lieu.getTypeLieux());
             System.out.println("Chef : " + lieu.getChefDeLieux());
 
@@ -127,8 +124,8 @@ public class Carte {
                 druide.accueillir();
                 inventaire.gererInventaireAvecDruide(lieu, druide);
             } else {
-                System.out.println("\n❌ Aucun druide dans ce lieu.");
-                System.out.println("💡 Retournez dans un village gaulois pour trouver un druide.");
+                System.out.println("\n Aucun druide dans ce lieu.");
+                System.out.println(" Retournez dans un village gaulois pour trouver un druide.");
             }
         }
     }
