@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import consomable.Aliments;
 
 public class Menu {
 
@@ -27,20 +26,6 @@ public class Menu {
         Scanner scanner = new Scanner(System.in);
         boolean continuer = true;
         Inventaire inventaire = new Inventaire(); // Créer une instance d'inventaire pour le jeu
-
-        // Ajouter des ingrédients de test pour pouvoir créer une potion
-        inventaire.ajouterIngredient(consomable.Aliments.TypeAliment.GUI, 2);
-        inventaire.ajouterIngredient(consomable.Aliments.TypeAliment.CAROTTES, 2);
-        inventaire.ajouterIngredient(consomable.Aliments.TypeAliment.SEL, 2);
-        inventaire.ajouterIngredient(consomable.Aliments.TypeAliment.TREFLE_QUATRE_FEUILLES_FRAIS, 2);
-        inventaire.ajouterIngredient(consomable.Aliments.TypeAliment.POISSON_PASSABLEMENT_FRAIS, 2);
-        inventaire.ajouterIngredient(consomable.Aliments.TypeAliment.HUILE_DE_ROCHE, 2);
-        inventaire.ajouterIngredient(consomable.Aliments.TypeAliment.MIEL, 2);
-        inventaire.ajouterIngredient(consomable.Aliments.TypeAliment.HYDROMEL, 2);
-        inventaire.ajouterIngredient(consomable.Aliments.TypeAliment.INGREDIENT_SECRET, 2);
-        inventaire.ajouterIngredient(consomable.Aliments.TypeAliment.HOMARD, 1);
-        inventaire.ajouterIngredient(consomable.Aliments.TypeAliment.FRAISES, 1);
-
         Carte carte = null;
 
         while(continuer) { // Boucle pour que le menu se réaffiche
