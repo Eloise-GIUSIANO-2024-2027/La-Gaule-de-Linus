@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import consomable.Aliments;
 
 public class Menu {
 
@@ -7,8 +8,9 @@ public class Menu {
                 "\n" + "1. Carte" +
                 "\n" + "2. Renseignement" +
                 "\n" + "3. Inventaire" +
-                "\n" + "4. Activation du mode loup-garou (non actif)" +
-                "\n" + "5. Quitter";
+                "\n" + "4. Visiter un druide (créer des potions)" +
+                "\n" + "5. Activation du mode loup-garou (non actif)" +
+                "\n" + "6. Quitter";
     }
 
     private static void pause() {
@@ -26,6 +28,21 @@ public class Menu {
         boolean continuer = true;
         Inventaire inventaire = new Inventaire(); // Créer une instance d'inventaire pour le jeu
 
+        // Ajouter des ingrédients de test pour pouvoir créer une potion
+        inventaire.ajouterIngredient(consomable.Aliments.TypeAliment.GUI, 2);
+        inventaire.ajouterIngredient(consomable.Aliments.TypeAliment.CAROTTES, 2);
+        inventaire.ajouterIngredient(consomable.Aliments.TypeAliment.SEL, 2);
+        inventaire.ajouterIngredient(consomable.Aliments.TypeAliment.TREFLE_QUATRE_FEUILLES_FRAIS, 2);
+        inventaire.ajouterIngredient(consomable.Aliments.TypeAliment.POISSON_PASSABLEMENT_FRAIS, 2);
+        inventaire.ajouterIngredient(consomable.Aliments.TypeAliment.HUILE_DE_ROCHE, 2);
+        inventaire.ajouterIngredient(consomable.Aliments.TypeAliment.MIEL, 2);
+        inventaire.ajouterIngredient(consomable.Aliments.TypeAliment.HYDROMEL, 2);
+        inventaire.ajouterIngredient(consomable.Aliments.TypeAliment.INGREDIENT_SECRET, 2);
+        inventaire.ajouterIngredient(consomable.Aliments.TypeAliment.HOMARD, 1);
+        inventaire.ajouterIngredient(consomable.Aliments.TypeAliment.FRAISES, 1);
+
+        Carte carte = null;
+
         while(continuer) { // Boucle pour que le menu se réaffiche
 
             System.out.println("\n" + getMenu());
@@ -37,7 +54,7 @@ public class Menu {
                 case "1":
                     pause();
                     System.out.println("\n");
-                    Carte carte = new Carte(inventaire);
+                    carte = new Carte(inventaire);
 //                    continuer = false;
                     break;
                 case "2":
@@ -52,17 +69,25 @@ public class Menu {
                     break;
                 case "4":
                     System.out.println("\n");
+                    if (carte == null) {
+                        System.out.println("❌ Vous devez d'abord accéder à la carte (option 1) !");
+                    } else {
+                        visiterDruide(scanner, carte, inventaire);
+                    }
+                    break;
+                case "5":
+                    System.out.println("\n");
                     System.out.println("Le mode Loups Garou n'est pas encore disponible.");
                     continuer = false;
                     break;
-                case "5":
+                case "6":
                     System.out.println("\n");
                     System.out.println("La Gaule attendras avec patience votre retours");
                     continuer = false;
                     break;
                 default:
                     System.out.println("\n");
-                    System.out.println("Choix non valide. Veuillez entrer un numéro entre 1 et 5");
+                    System.out.println("Choix non valide. Veuillez entrer un numéro entre 1 et 6");
                     break;
             }
 
@@ -70,6 +95,23 @@ public class Menu {
                 System.out.print("\nAppuyez sur ENTRÉE pour continuer...");
                 scanner.nextLine(); // Attend que l'utilisateur appuie sur Entrée
             }
+        }
+    }
+
+    private static void visiterDruide(Scanner scanner, Carte carte, Inventaire inventaire) {
+        carte.afficherLieuxAvecDruides();
+        System.out.println();
+        System.out.print("Choisissez un lieu à visiter (numéro du lieu dans la liste totale) : ");
+
+        try {
+            int choix = Integer.parseInt(scanner.nextLine().trim());
+            if (choix >= 1 && choix <= carte.getTousLesLieux().size()) {
+                carte.visiterLieu(choix - 1);
+            } else {
+                System.out.println("❌ Numéro de lieu invalide !");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("❌ Veuillez entrer un numéro valide !");
         }
     }
 

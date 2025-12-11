@@ -1,7 +1,5 @@
-import consomable.Aliments;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.Scanner;
 
 public class Carte {
@@ -30,6 +28,13 @@ public class Carte {
 
     public Carte(Inventaire inventaire) {
         this.inventaire = inventaire;
+
+        // Ajouter des druides dans les villages gaulois
+        Personnage.Druide panoramix = new Personnage.Druide("Panoramix", 65, 100, "Potions de force surhumaine");
+        Beurk.setDruide(panoramix);
+
+        Personnage.Druide diagnostix = new Personnage.Druide("Diagnostix", 58, 95, "Potions de guérison");
+        Cielus.setDruide(diagnostix);
 
         TousLesLieux.add(Beurk);
         TousLesLieux.add(Cielus);
@@ -83,7 +88,7 @@ public class Carte {
     public void AfficherLieuxConquis() {
         for (Lieux lieu : TousLesLieux) {
             if (lieu.getConquerieOuBienNan().equals("OUI")) {
-                System.out.println(lieu.toString());
+                System.out.println(lieu);
             }
         }
     }
@@ -93,6 +98,43 @@ public class Carte {
             if (lieu.getConquerieOuBienNan().equals("NAN")) {
                 System.out.println(lieu);            }
         }
+    }
+
+    public void afficherLieuxAvecDruides() {
+        System.out.println("\n🧙 LIEUX AVEC DES DRUIDES :");
+        boolean aDruide = false;
+        for (int i = 0; i < TousLesLieux.size(); i++) {
+            Lieux lieu = TousLesLieux.get(i);
+            if (lieu.aDruide()) {
+                System.out.println((i + 1) + ". " + lieu.getNom() + " - Druide : " + lieu.getDruide().getNom());
+                aDruide = true;
+            }
+        }
+        if (!aDruide) {
+            System.out.println("Aucun druide disponible pour le moment.");
+        }
+    }
+
+    public void visiterLieu(int index) {
+        if (index >= 0 && index < TousLesLieux.size()) {
+            Lieux lieu = TousLesLieux.get(index);
+            System.out.println("\n🏛️  Vous visitez : " + lieu.getNom());
+            System.out.println("Type : " + lieu.getTypeLieux());
+            System.out.println("Chef : " + lieu.getChefDeLieux());
+
+            if (lieu.aDruide()) {
+                Personnage.Druide druide = lieu.getDruide();
+                druide.accueillir();
+                inventaire.gererInventaireAvecDruide(lieu, druide);
+            } else {
+                System.out.println("\n❌ Aucun druide dans ce lieu.");
+                System.out.println("💡 Retournez dans un village gaulois pour trouver un druide.");
+            }
+        }
+    }
+
+    public List<Lieux> getTousLesLieux() {
+        return TousLesLieux;
     }
 
 }

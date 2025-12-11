@@ -1,3 +1,9 @@
+import Personnage.PNJStats;
+import Personnage.CharacterRole;
+import Personnage.Druide;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Lieux {
 
     private String nom;
@@ -7,6 +13,8 @@ public class Lieux {
     private String Aliments;
     private String TypeLieux;
     private String ConquerieOuBienNan;
+    private List<PNJStats> personnages;
+    private Druide druide; // Le druide du lieu (si présent)
 
 
     public Lieux(String nom, int superficie, String ConquerieOuBienNan, String ChefDeLieux, int NbPersonnages, String Aliments,String TypeLieux) {
@@ -17,6 +25,27 @@ public class Lieux {
         this.NbPersonnages = NbPersonnages;
         this.Aliments = Aliments;
         this.TypeLieux = TypeLieux;
+        this.personnages = new ArrayList<>();
+    }
+
+    public void ajouterPersonnage(PNJStats personnage) {
+        personnages.add(personnage);
+    }
+
+    public void setDruide(Druide druide) {
+        this.druide = druide;
+    }
+
+    public boolean aDruide() {
+        return druide != null;
+    }
+
+    public Druide getDruide() {
+        return druide;
+    }
+
+    public List<PNJStats> getPersonnages() {
+        return personnages;
     }
 
     public String getConquerieOuBienNan() {
