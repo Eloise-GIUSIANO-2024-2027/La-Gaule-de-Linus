@@ -1,4 +1,3 @@
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -9,21 +8,60 @@ public class Theatre {
     private int NbLieuxMAX;
     private List<Lieux> lieuxContenus;
     private Boolean PossederOuPas;
-//    private chef de clan
+    private ChefDeClan chefDeClan;
+    public static List<PNJStats> personnagesTheatre1 = new ArrayList<>();
+    public static List<PNJStats> personnagesTheatre2 = new ArrayList<>();
+    public static List<PNJStats> personnagesTheatre3 = new ArrayList<>();
 
-    public Theatre (String nom, int NbLieuxMAX,Boolean PossederOuPas){
+    public Theatre(String nom, int NbLieuxMAX, Boolean PossederOuPas, ChefDeClan chef) {
         this.nom = nom;
         this.lieuxContenus = new ArrayList<>();
         this.NbLieuxMAX = NbLieuxMAX;
         this.PossederOuPas = PossederOuPas;
+        this.chefDeClan = chef;
     }
 
-    public static Theatre theatreFacile = new Theatre("Théatre I", 2, false);
-    public static Theatre theatreMoyen = new Theatre("Théatre II", 2, false);
-    public static Theatre theatreDifficile = new Theatre("Théatre III", 2, false);
+    public String getNom(){
+        return nom;
+    }
+
+    public List<PNJStats> getPersonnagesTheatre(int numeroTheatre) {
+        if (numeroTheatre == 1) {
+            return theatreFacile.personnagesTheatre1;
+        } else if (numeroTheatre == 2) {
+            return theatreMoyen.personnagesTheatre2;
+        } else if (numeroTheatre == 3) {
+            return theatreDifficile.personnagesTheatre3;
+        }
+        return new ArrayList<>();
+    }
+
+    public List<Lieux> getLieuxContenus() {
+        return lieuxContenus;
+    }
+
+    public ChefDeClan getChefDeClan() {
+        return chefDeClan;
+    }
+
+    public static final ChefDeClan chefFacile = new ChefDeClan("Abraracourcix", "M", 50, null);
+    public static final ChefDeClan chefMoyen = new ChefDeClan("Jolitorax", "M", 45, null);
+    public static final ChefDeClan chefDifficile = new ChefDeClan("Cetautomotix", "M", 38, null);
+
+    public static Theatre theatreFacile = new Theatre("Théatre I", 2, false, chefFacile);
+    public static Theatre theatreMoyen = new Theatre("Théatre II", 2, false, chefMoyen);
+    public static Theatre theatreDifficile = new Theatre("Théatre III", 2, false, chefDifficile);
 
     public boolean ajouterLieu(Lieux nouveauLieu) {
+        if (nouveauLieu == null) {
+            System.err.println("Erreur : tentative d'ajout d'un lieu null");
+            return false;
+        }
+
         if (lieuxContenus.size() < NbLieuxMAX) {
+            if (nouveauLieu.getChefDeLieux() != this.chefDeClan) {
+                nouveauLieu.setChefDeLieux(this.chefDeClan);
+            }
             lieuxContenus.add(nouveauLieu);
             return true;
         } else {
@@ -31,8 +69,7 @@ public class Theatre {
         }
     }
 
-    static{
-//        theatreFacile.ajouterLieu(Carte.getBeurk());
+    public static void initialiserLieuxDesTheatres() {
         theatreFacile.ajouterLieu(Carte.getTiramisum());
         theatreFacile.ajouterLieu(Carte.getCielus());
 
@@ -52,7 +89,9 @@ public class Theatre {
         }
     }
 
-    public Theatre(){
+    public Theatre() {
+//        initialiserLieuxDesTheatres();
+
         System.out.println("***BRUIT-DE-TROMPETTE***");
         pause();
         System.out.println("/-/ Bienvenue dans les Théatre d'envahissement ! /-/");
@@ -108,7 +147,7 @@ public class Theatre {
             }
             if (continuer) {
                 System.out.print("\nAppuyez sur ENTRÉE pour continuer...");
-                scanner.nextLine(); // Attend que l'utilisateur appuie sur Entrée
+                scanner.nextLine();
             }
         }
     }
@@ -123,13 +162,12 @@ public class Theatre {
         System.out.println("4.Retours au menu principale");
     }
 
-    public void LesRenseignementTheatre (){
+    public void LesRenseignementTheatre() {
         System.out.println("o________o");
         System.out.println("|        |");
         System.out.println("|________|");
         System.out.println("|");
         System.out.println("| Voila les renseignement sur les Théatre d'envahissement: ");
-//        System.out.println("");
         pause();
         System.out.println("\n" + theatreFacile);
         pause();
@@ -137,6 +175,7 @@ public class Theatre {
         pause();
         System.out.println("\n" + theatreDifficile);
     }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -152,10 +191,9 @@ public class Theatre {
             }
         }
         sb.append("Statut du Théatre : ");
-        if (PossederOuPas == false){
+        if (PossederOuPas == false) {
             sb.append("Le théatre n'as pas encore était conquis");
-        }
-        else {
+        } else {
             sb.append("Vous avez conquis ce théatre !");
         }
 

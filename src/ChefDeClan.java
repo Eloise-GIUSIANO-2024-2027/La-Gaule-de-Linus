@@ -3,10 +3,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-import Personnage.ListeNom;
-import Personnage.PNJStats;
-import Personnage.CharacterType;
-import Personnage.CharacterRole;
 import consomable.Alliments;
 import consomable.Potion;
 
@@ -22,7 +18,9 @@ public class ChefDeClan {
         this.nom = nom;
         this.lieu = lieu;
     }
-
+    public void setLieu(Lieux lieu) {
+        this.lieu = lieu;
+    }
     public String getNom() {
         return nom;
     }
@@ -43,15 +41,33 @@ public class ChefDeClan {
             System.out.println("Nombre de personnages : " + lieu.getNbPersonnages());
         } else {
             System.out.println("'Chef, ce lieu est inconnu au bataillon...'");
+            return;
         }
 
-        System.out.println("\nPersonnages rattachés au chef :");
-        if (subordonnes.isEmpty()) {
+        System.out.println("\nPersonnages rattachés au Théâtre :");
+
+        List<PNJStats> personnagesDuTheatre = new ArrayList<>();
+
+        if (this.getNom().equals(Theatre.chefFacile.getNom())) {
+            personnagesDuTheatre = Theatre.personnagesTheatre1;
+        } else if (this.getNom().equals(Theatre.chefMoyen.getNom())) {
+            personnagesDuTheatre = Theatre.personnagesTheatre2;
+        } else if (this.getNom().equals(Theatre.chefDifficile.getNom())) {
+            personnagesDuTheatre = Theatre.personnagesTheatre3;
+        }
+
+        if (personnagesDuTheatre.isEmpty()) {
             System.out.println("'Ce lieu semble vidius chef...'");
         } else {
-            for (int i = 0; i < subordonnes.size(); i++) {
-                PNJStats p = subordonnes.get(i);
-                System.out.println("  [" + i+1 + "] " + p.getNom() + " - Santé : " + p.getIndicateurSante() + "; Faim : " + p.getIndicateurFaim() + "; Rôle : " + p.getRole());
+            boolean trouve = false;
+            for (PNJStats p : personnagesDuTheatre) {
+                if (p.getLieuActuel() == this.lieu) {
+                    System.out.println("  [xx] " + p.getNom() + " - Santé : " + p.getIndicateurSante() + "; Faim : " + p.getIndicateurFaim() + "; Rôle : " + p.getRole());
+                    trouve = true;
+                }
+            }
+            if (!trouve) {
+                System.out.println("'Aucun de vos personnages du Théâtre n'est ici.'");
             }
         }
 
@@ -93,7 +109,7 @@ public class ChefDeClan {
 
         int age;
         if (agePerso <= 0) {
-            age = 18 + random.nextInt(43); // 18 à 60
+            age = 18 + random.nextInt(43);
         } else {
             age = agePerso;
         }
@@ -104,15 +120,12 @@ public class ChefDeClan {
         taille = Math.round(taille * 100.0) / 100.0;
 
         int force = 5 + random.nextInt(20);
-
         int endurance = 5 + random.nextInt(20);
 
         PNJStats p = new PNJStats();
         p.setNom(nom);
         p.setSexe(sexe);
         p.setAge(age);
-        p.setType(type);
-        p.setRole(role);
         p.setTaille(taille);
         p.setForce(force);
         p.setEndurance(endurance);
@@ -121,12 +134,38 @@ public class ChefDeClan {
         p.setIndicateurBelligerance(0);
         p.setNiveauPotionMagique(0);
 
-        subordonnes.add(p);
-        if (lieu != null) {
-            lieu.setNbPersonnages(lieu.getNbPersonnages() + 1);
+        if (role == null) {
+            CharacterRoleAssigner.assignRole(p, type);
+        } else {
+            CharacterRoleAssigner.assignRole(p, type, role);
         }
+
+        subordonnes.add(p);
+
+
+        if (lieu != null) {
+
+            List<PNJStats> listeCible = null;
+
+            if (this.getNom().equals(Theatre.chefFacile.getNom())) {
+                listeCible = Theatre.personnagesTheatre1;
+            } else if (this.getNom().equals(Theatre.chefMoyen.getNom())) {
+                listeCible = Theatre.personnagesTheatre2;
+            } else if (this.getNom().equals(Theatre.chefDifficile.getNom())) {
+                listeCible = Theatre.personnagesTheatre3;
+            }
+
+            if (listeCible != null) {
+                listeCible.add(p);
+
+                p.setLieuActuel(this.lieu);
+                this.lieu.setNbPersonnages(this.lieu.getNbPersonnages() + 1);
+            }
+        }
+
         System.out.println("'" + nom + "' à rejoint votre équipe ! (âge: " + age + ", sexe: " + sexe +
-                           ", taille: " + taille + "m, force: " + force + ", endurance: " + endurance + ")");
+                ", taille: " + taille + "m, force: " + force + ", endurance: " + endurance +
+                ", rôle: " + p.getRole() + ")");
         return p;
     }
 
@@ -154,7 +193,7 @@ public class ChefDeClan {
             boolean consommable = a.estConsommablePar(auteurTypeToTypePersonnage(p.getType()));
             if (consommable) {
                 int faimAvant = p.getIndicateurFaim();
-                int reduction = 30; //a modifier pour changer selon le type de nourriture (ex: sanglier = 50, miel = 20)
+                int reduction = 30;
                 int faimApres = Math.max(0, faimAvant - reduction);
                 p.setIndicateurFaim(faimApres);
                 System.out.println("    - " + p.getNom() + " mange '" + a.getNom() + "' : " + faimAvant + " -> " + faimApres);
@@ -190,7 +229,7 @@ public class ChefDeClan {
             return;
         }
         if (cible == null) {
-            System.out.println("'Chef, sauf erreur de ma part, vous n'avez pas spécifix qui doit boire la potion...'");
+            System.out.println("'Chef, sauf erreur de ma part, vous n'avez pas spécifiux qui doit boire la potion...'");
             return;
         }
         System.out.println("\n" + nom + " fait boire " + doses + " dose(s) de potion à " + cible.getNom() + "...");
@@ -200,7 +239,7 @@ public class ChefDeClan {
             return;
         }
 
-        int soin = 20 * doses; //a modifier si besoin
+        int soin = 20 * doses;
         int sAvant = cible.getIndicateurSante();
         cible.setIndicateurSante(Math.min(100, sAvant + soin));
         cible.setNiveauPotionMagique(cible.getNiveauPotionMagique() + 1);
@@ -212,16 +251,55 @@ public class ChefDeClan {
     }
 
     public boolean transfererPersonnageVers(PNJStats p, Lieux destination) {
-        if (!subordonnes.remove(p)) {
-            System.out.println("Ce personnage n'appartient pas à ce chef.");
+        if (destination != null && !destination.peutContenirPersonnage(p)) {
+            System.out.println("\n" +
+                    " TRANSFERT IMPOSSIBLE !");
+            System.out.println(destination.getMessageRefus(p));
+            System.out.println(p.getNom() + " reste à " + (p.getLieuActuel() != null ? p.getLieuActuel().getNom() : "son lieu actuel"));
             return false;
         }
+
         if (lieu != null) {
             lieu.setNbPersonnages(Math.max(0, lieu.getNbPersonnages() - 1));
         }
+
+        List<PNJStats> listeSource = null;
+        if (this.getNom().equals(Theatre.chefFacile.getNom())) {
+            listeSource = Theatre.personnagesTheatre1;
+        } else if (this.getNom().equals(Theatre.chefMoyen.getNom())) {
+            listeSource = Theatre.personnagesTheatre2;
+        } else if (this.getNom().equals(Theatre.chefDifficile.getNom())) {
+            listeSource = Theatre.personnagesTheatre3;
+        }
+
+        if (listeSource != null) {
+            listeSource.remove(p);
+        }
+
         if (destination != null) {
             destination.setNbPersonnages(destination.getNbPersonnages() + 1);
+            p.setLieuActuel(destination);
+
+            ChefDeClan chefDestination = destination.getChefDeLieux();
+            if (chefDestination != null) {
+                List<PNJStats> listeDestination = null;
+
+                if (chefDestination.getNom().equals(Theatre.chefFacile.getNom())) {
+                    listeDestination = Theatre.personnagesTheatre1;
+                } else if (chefDestination.getNom().equals(Theatre.chefMoyen.getNom())) {
+                    listeDestination = Theatre.personnagesTheatre2;
+                } else if (chefDestination.getNom().equals(Theatre.chefDifficile.getNom())) {
+                    listeDestination = Theatre.personnagesTheatre3;
+                }
+
+                if (listeDestination != null && !listeDestination.contains(p)) {
+                    listeDestination.add(p);
+                }
+            }
+        } else {
+            p.setLieuActuel(null);
         }
+
         System.out.println(nom + " transfère " + p.getNom() + " vers " + (destination != null ? destination.getNom() : "(inconnu)"));
         return true;
     }

@@ -1,5 +1,3 @@
-package Personnage;
-
 import java.util.Random;
 
 public class ListeNom {

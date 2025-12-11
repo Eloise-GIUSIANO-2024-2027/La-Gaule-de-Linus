@@ -1,5 +1,3 @@
-package Personnage;
-
 public enum CharacterRole {
     MARCHAND,
     AUBERGISTE,

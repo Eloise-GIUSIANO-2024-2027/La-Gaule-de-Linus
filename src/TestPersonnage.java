@@ -1,5 +1,3 @@
-import Personnage.*;
-
 public class TestPersonnage {
     public static void main(String[] args) {
         System.out.println("/-/ Test d'attribution des rôles /-/\n");

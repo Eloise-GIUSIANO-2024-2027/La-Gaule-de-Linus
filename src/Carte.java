@@ -4,13 +4,27 @@ import java.util.Scanner;
 
 public class Carte {
 
-    public static Lieux Beurk = new Lieux("Beurk", 25,"OUI","La Mere A Thomas", 8, "Sanglier", "VillageGaulois");
-    public static Lieux Cielus = new Lieux("Cielus", 28,"NAN" ,"La Mere A Thomas", 3, "Sanglier", "VillageGaulois");
-    public static Lieux Babaorum = new Lieux("Babaorum", 12, "NAN" ,"La Mere A Dimitri", 4, "Sanglier", "CampRomain");
-    public static Lieux Aquarium = new Lieux("Aquarium", 58, "NAN","Ma Mere", 9, "Sanglier", "VilleRomain");
-    public static Lieux Laudanum = new Lieux("Laudanum", 28, "NAN", "La Mere De Anni", 6, "Sanglier", "BourgadeGalloRomaine");
-    public static Lieux Tiramisum = new Lieux("Tiramisum", 9, "NAN","La Mere De Emmanuel Macron", 3, "Sanglier", "Enclos");
-    public static Lieux Helium = new Lieux("Helium", 150, "NAN","La Mere de Chantal Ladessous", 20, "Sanglier", "ChampsBataille");
+    public static Lieux Beurk;
+    public static Lieux Cielus;
+    public static Lieux Babaorum;
+    public static Lieux Aquarium;
+    public static Lieux Laudanum;
+    public static Lieux Tiramisum;
+    public static Lieux Helium;
+
+    static {
+        initializeLieux();
+    }
+
+    private static void initializeLieux() {
+        Beurk = new Lieux("Beurk", 25, "OUI", Theatre.chefFacile, 8, "Sanglier", "VillageGaulois");
+        Cielus = new Lieux("Cielus", 28, "NAN", Theatre.chefFacile, 3, "Sanglier", "VillageGaulois");
+        Babaorum = new Lieux("Babaorum", 12, "NAN", Theatre.chefMoyen, 4, "Sanglier", "CampRomain");
+        Aquarium = new Lieux("Aquarium", 58, "NAN", Theatre.chefDifficile, 9, "Sanglier", "VilleRomain");
+        Laudanum = new Lieux("Laudanum", 28, "NAN", Theatre.chefMoyen, 6, "Sanglier", "BourgadeGalloRomaine");
+        Tiramisum = new Lieux("Tiramisum", 9, "NAN", Theatre.chefFacile, 3, "Sanglier", "Enclos");
+        Helium = new Lieux("Helium", 150, "NAN", Theatre.chefDifficile, 20, "Sanglier", "ChampsBataille");
+    }
 
     public static Lieux getBeurk() {
         return Beurk;
@@ -76,7 +90,7 @@ public class Carte {
         AfficherLieuxNonConquis();
         System.out.println("Voulez vous des renseignements suplémentaires sur un lieux ?");
         System.out.println("Oui : 1 et Non : 2");
-        while(renseignement) { // Boucle pour que le menu se réaffiche
+        while(renseignement) {
             System.out.print("Entrez votre choix : ");
             String choix = scanner.nextLine().trim().toUpperCase();
 
@@ -111,11 +125,12 @@ public class Carte {
     public void AfficherLieuxNonConquis() {
         for (Lieux lieu : TousLesLieux) {
             if (lieu.getConquerieOuBienNan().equals("NAN")) {
-                System.out.println(lieu);            }
+                System.out.println(lieu);
+            }
         }
     }
 
-    public void renseignementLIEU (){
+    public void renseignementLIEU() {
         System.out.println("Pour quels lieux voulez vous des renseignement ? ");
         System.out.println("\n");
         System.out.println("1.Beurk");
@@ -128,7 +143,7 @@ public class Carte {
 
         boolean renseignementLIEU = true;
 
-        while(renseignementLIEU) { // Boucle pour que le menu se réaffiche
+        while(renseignementLIEU) {
             System.out.print("Entrez votre choix : ");
             String choix = scanner.nextLine().trim().toUpperCase();
 
@@ -156,12 +171,12 @@ public class Carte {
                     break;
                 case "5":
                     System.out.println("\n");
-                    System.out.println(toStringLaudanum() );
+                    System.out.println(toStringLaudanum());
                     renseignementLIEU = false;
                     break;
                 case "6":
                     System.out.println("\n");
-                    System.out.println(toStringTiramisum() );
+                    System.out.println(toStringTiramisum());
                     renseignementLIEU = false;
                     break;
                 case "7":
@@ -174,21 +189,19 @@ public class Carte {
                     break;
             }
         }
-
     }
 
-    public String toStringBeurk (){
+    public String toStringBeurk() {
         StringBuilder sb = new StringBuilder();
         sb.append("--- ").append(Beurk.getNom()).append(" ---\n");
-        sb.append("Chef de Lieu: ").append(Beurk.getChefDeLieux()).append("\n");
+        sb.append("Chef de Lieu: ").append(Beurk.getChefDeLieux() != null ? Beurk.getChefDeLieux().getNom() : "Aucun").append("\n");
         sb.append("Nombre de personnages: ").append(Beurk.getNbPersonnages()).append("\n");
         sb.append("Les aliments sur le lieu: ").append(Beurk.getAliments()).append("\n");
         sb.append("Superficie : ").append(Beurk.getSuperficie()).append("\n");
         sb.append("Types de lieu: ").append(Beurk.getTypeLieux()).append("\n");
-        if (Beurk.getConquerieOuBienNan().equals("NAN")) { // ici
+        if (Beurk.getConquerieOuBienNan().equals("NAN")) {
             sb.append("Le lieux n'est pas conquérie").append("\n");
-        }
-        else {
+        } else {
             sb.append("Le lieux est conquérie").append("\n");
         }
         return sb.toString();
@@ -197,15 +210,14 @@ public class Carte {
     public String toStringCielus() {
         StringBuilder sb = new StringBuilder();
         sb.append("--- ").append(Cielus.getNom()).append(" ---\n");
-        sb.append("Chef de Lieu: ").append(Cielus.getChefDeLieux()).append("\n");
+        sb.append("Chef de Lieu: ").append(Cielus.getChefDeLieux() != null ? Cielus.getChefDeLieux().getNom() : "Aucun").append("\n");
         sb.append("Nombre de personnages: ").append(Cielus.getNbPersonnages()).append("\n");
         sb.append("Les aliments sur le lieu: ").append(Cielus.getAliments()).append("\n");
         sb.append("Superficie : ").append(Cielus.getSuperficie()).append("\n");
         sb.append("Types de lieu: ").append(Cielus.getTypeLieux()).append("\n");
-        if (Cielus.getConquerieOuBienNan().equals("NAN")) { // ici
+        if (Cielus.getConquerieOuBienNan().equals("NAN")) {
             sb.append("Le lieux n'est pas conquérie").append("\n");
-        }
-        else {
+        } else {
             sb.append("Le lieux est conquérie").append("\n");
         }
         return sb.toString();
@@ -214,15 +226,14 @@ public class Carte {
     public String toStringBabaorum() {
         StringBuilder sb = new StringBuilder();
         sb.append("--- ").append(Babaorum.getNom()).append(" ---\n");
-        sb.append("Chef de Lieu: ").append(Babaorum.getChefDeLieux()).append("\n");
+        sb.append("Chef de Lieu: ").append(Babaorum.getChefDeLieux() != null ? Babaorum.getChefDeLieux().getNom() : "Aucun").append("\n");
         sb.append("Nombre de personnages: ").append(Babaorum.getNbPersonnages()).append("\n");
         sb.append("Les aliments sur le lieu: ").append(Babaorum.getAliments()).append("\n");
         sb.append("Superficie : ").append(Babaorum.getSuperficie()).append("\n");
         sb.append("Types de lieu: ").append(Babaorum.getTypeLieux()).append("\n");
-        if (Babaorum.getConquerieOuBienNan().equals("NAN")) { // ici
+        if (Babaorum.getConquerieOuBienNan().equals("NAN")) {
             sb.append("Le lieux n'est pas conquérie").append("\n");
-        }
-        else {
+        } else {
             sb.append("Le lieux est conquérie").append("\n");
         }
         return sb.toString();
@@ -231,15 +242,14 @@ public class Carte {
     public String toStringAquarium() {
         StringBuilder sb = new StringBuilder();
         sb.append("--- ").append(Aquarium.getNom()).append(" ---\n");
-        sb.append("Chef de Lieu: ").append(Aquarium.getChefDeLieux()).append("\n");
+        sb.append("Chef de Lieu: ").append(Aquarium.getChefDeLieux() != null ? Aquarium.getChefDeLieux().getNom() : "Aucun").append("\n");
         sb.append("Nombre de personnages: ").append(Aquarium.getNbPersonnages()).append("\n");
         sb.append("Les aliments sur le lieu: ").append(Aquarium.getAliments()).append("\n");
         sb.append("Superficie : ").append(Aquarium.getSuperficie()).append("\n");
         sb.append("Types de lieu: ").append(Aquarium.getTypeLieux()).append("\n");
-        if (Aquarium.getConquerieOuBienNan().equals("NAN")) { // ici
+        if (Aquarium.getConquerieOuBienNan().equals("NAN")) {
             sb.append("Le lieux n'est pas conquérie").append("\n");
-        }
-        else {
+        } else {
             sb.append("Le lieux est conquérie").append("\n");
         }
         return sb.toString();
@@ -248,15 +258,14 @@ public class Carte {
     public String toStringLaudanum() {
         StringBuilder sb = new StringBuilder();
         sb.append("--- ").append(Laudanum.getNom()).append(" ---\n");
-        sb.append("Chef de Lieu: ").append(Laudanum.getChefDeLieux()).append("\n");
+        sb.append("Chef de Lieu: ").append(Laudanum.getChefDeLieux() != null ? Laudanum.getChefDeLieux().getNom() : "Aucun").append("\n");
         sb.append("Nombre de personnages: ").append(Laudanum.getNbPersonnages()).append("\n");
         sb.append("Les aliments sur le lieu: ").append(Laudanum.getAliments()).append("\n");
         sb.append("Superficie : ").append(Laudanum.getSuperficie()).append("\n");
         sb.append("Types de lieu: ").append(Laudanum.getTypeLieux()).append("\n");
-        if (Laudanum.getConquerieOuBienNan().equals("NAN")) { // ici
+        if (Laudanum.getConquerieOuBienNan().equals("NAN")) {
             sb.append("Le lieux n'est pas conquérie").append("\n");
-        }
-        else {
+        } else {
             sb.append("Le lieux est conquérie").append("\n");
         }
         return sb.toString();
@@ -265,15 +274,14 @@ public class Carte {
     public String toStringTiramisum() {
         StringBuilder sb = new StringBuilder();
         sb.append("--- ").append(Tiramisum.getNom()).append(" ---\n");
-        sb.append("Chef de Lieu: ").append(Tiramisum.getChefDeLieux()).append("\n");
+        sb.append("Chef de Lieu: ").append(Tiramisum.getChefDeLieux() != null ? Tiramisum.getChefDeLieux().getNom() : "Aucun").append("\n");
         sb.append("Nombre de personnages: ").append(Tiramisum.getNbPersonnages()).append("\n");
         sb.append("Les aliments sur le lieu: ").append(Tiramisum.getAliments()).append("\n");
         sb.append("Superficie : ").append(Tiramisum.getSuperficie()).append("\n");
         sb.append("Types de lieu: ").append(Tiramisum.getTypeLieux()).append("\n");
-        if (Tiramisum.getConquerieOuBienNan().equals("NAN")) { // ici
+        if (Tiramisum.getConquerieOuBienNan().equals("NAN")) {
             sb.append("Le lieux n'est pas conquérie").append("\n");
-        }
-        else {
+        } else {
             sb.append("Le lieux est conquérie").append("\n");
         }
         return sb.toString();
@@ -282,18 +290,16 @@ public class Carte {
     public String toStringHelium() {
         StringBuilder sb = new StringBuilder();
         sb.append("--- ").append(Helium.getNom()).append(" ---\n");
-        sb.append("Chef de Lieu: ").append(Helium.getChefDeLieux()).append("\n");
+        sb.append("Chef de Lieu: ").append(Helium.getChefDeLieux() != null ? Helium.getChefDeLieux().getNom() : "Aucun").append("\n");
         sb.append("Nombre de personnages: ").append(Helium.getNbPersonnages()).append("\n");
         sb.append("Les aliments sur le lieu: ").append(Helium.getAliments()).append("\n");
         sb.append("Superficie : ").append(Helium.getSuperficie()).append("\n");
         sb.append("Types de lieu: ").append(Helium.getTypeLieux()).append("\n");
-        if (Helium.getConquerieOuBienNan().equals("NAN")) { // ici
+        if (Helium.getConquerieOuBienNan().equals("NAN")) {
             sb.append("Le lieux n'est pas conquérie").append("\n");
-        }
-        else {
+        } else {
             sb.append("Le lieux est conquérie").append("\n");
         }
         return sb.toString();
     }
-
 }
